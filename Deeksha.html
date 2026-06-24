@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth select-none">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deeksha Udayasankar | Experience Intelligence Portfolio</title>
+    <!-- Tailwind CSS CDN for utility framework alignment -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Space Grotesk (Headers) & Inter (Body Copy) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandPrimary: '#785BD8',    /* Core Accent Purple */
+                        brandSecondary: '#7185EA',  /* Bright Violet-Blue */
+                        brandTertiary: '#C8D1DC',   /* Light Metallic Gray */
+                        bgDark: '#07070A',          /* Deep Space Matte Black */
+                        titleMain: '#F5F7FA',       /* Stark White Titles */
+                        titleSecond: '#D7DDE8',     /* Soft Muted Indigo Subtitles */
+                        textContent: '#D0D7E4'      /* High Readability Content Gray */
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #07070A;
+            color: #D0D7E4;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- FINE-TUNED VISUAL PATTERN: SPACE SHAPE GRID --- */
+        .shape-grid-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(120, 91, 216, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(120, 91, 216, 0.04) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -2;
+            pointer-events: none;
+        }
+        
+        /* Smooth Dynamic Radial Atmospheric Back-Glow */
+        .ambient-glow {
+            position: fixed;
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(119, 91, 216, 0.07) 0%, transparent 65%);
+            top: -10%; right: -10%;
+            z-index: -1;
+            pointer-events: none;
+            mix-blend-mode: screen;
+        }
+
+        /* --- FINE-TUNED GLASSMORPHISM PATTERN --- */
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(18, 18, 26, 0.7) 0%, rgba(10, 10, 15, 0.4) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(120, 91, 216, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* --- SCROLL REVEAL / FLOATING MOTION ENGINE --- */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, opacity;
+        }
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- HERO SHINY TEXT (GRADIENT INTERPOLATION) --- */
+        .shiny-text {
+            background: linear-gradient(to right, #F5F7FA 20%, #7185EA 45%, #785BD8 55%, #F5F7FA 80%);
+            background-size: 200% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: continuousShine 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        @keyframes continuousShine {
+            0% { background-position: 200% center; }
+            100% { background-position: -200% center; }
+        }
+
+        /* --- ADVANCED LIGHT BEAM ANIMATION --- */
+        .beam-emitter {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, rgba(113, 133, 234, 0.4), #785BD8, transparent);
+            width: 250px; height: 1px;
+            opacity: 0;
+            transform: rotate(-45deg);
+            pointer-events: none;
+            will-change: top, left, opacity;
+            animation: beamPassage 9s ease-in-out infinite;
+        }
+        @keyframes beamPassage {
+            0% { top: -20%; left: -20%; opacity: 0; }
+            10% { opacity: 0.8; }
+            50% { opacity: 1; }
+            90% { opacity: 0.8; }
+            100% { top: 120%; left: 120%; opacity: 0; }
+        }
+
+        /* --- PERFORMANCE SPOTLIGHT CARDS --- */
+        .spotlight-card {
+            position: relative;
+            will-change: border-color;
+        }
+        .spotlight-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            background: radial-gradient(400px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(113, 133, 234, 0.4), transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .spotlight-card:hover::before {
+            opacity: 1;
+        }
+
+        /* --- STICKY LAYER COMPRESSION (SCROLL STACK) --- */
+        .sticky-stack-card {
+            position: sticky;
+            top: 140px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .sticky-stack-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(120, 91, 216, 0.1);
+        }
+
+        /* --- HARDWARE ACCELERATED MAGNET CONTAINER --- */
+        .magnet-btn {
+            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            will-change: transform;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Universal Structural Templates -->
+    <div class="shape-grid-bg"></div>
+    <div class="ambient-glow"></div>
+    <div class="beam-emitter" style="animation-delay: 0s;"></div>
+    <div class="beam-emitter" style="animation-delay: 4.5s; top: 15%;"></div>
+
+    <!-- --- GLOBAL STICKY NAVIGATION HEADER --- -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-[#07070A]/70 backdrop-blur-xl border-b border-brandPrimary/10 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="#hero" class="font-display font-bold text-titleMain tracking-wide text-lg group">
+                Deeksha Udayasankar <span class="text-xs font-normal text-brandSecondary block group-hover:text-brandPrimary transition-colors">UI/UX Designer</span>
+            </a>
+            <div class="flex space-x-8 font-sans text-xs uppercase tracking-widest font-semibold">
+                <a href="#expertise" class="text-textContent hover:text-brandSecondary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brandSecondary hover:after:w-full after:transition-all">Expertise</a>
+                <a href="#framework" class="text-textContent hover:text-brandSecondary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brandSecondary hover:after:w-full after:transition-all">Framework</a>
+                <a href="#about" class="text-textContent hover:text-brandSecondary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brandSecondary hover:after:w-full after:transition-all">About</a>
+                <a href="#contact" class="text-textContent hover:text-brandSecondary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brandSecondary hover:after:w-full after:transition-all">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="w-full relative">
+
+        <!-- 1. HERO SECTION -->
+        <section id="hero" class="min-h-screen flex flex-col justify-center items-center px-6 relative max-w-5xl mx-auto text-center pt-24">
+            <h1 class="font-display font-bold text-4xl md:text-6xl text-titleMain leading-tight mb-8 tracking-tight scroll-reveal">
+                <span class="shiny-text">Designing experiences that feel human and think intelligently.</span>
+            </h1>
+            <p class="font-sans text-lg md:text-xl text-titleSecond max-w-2xl mb-4 font-light tracking-wide scroll-reveal" style="transition-delay: 0.1s;">
+                A UI/UX portfolio exploring the intersection of usability, visual design, and emerging technology.[cite: 1]
+            </p>
+            <p class="font-sans text-sm md:text-base text-textContent max-w-3xl mb-12 font-light leading-relaxed tracking-wide scroll-reveal" style="transition-delay: 0.2s;">
+                I create experiences that transform complexity into clarity, combining user-centered thinking, visual craftsmanship, and intelligent systems to design products that are meaningful, intuitive, and built for tomorrow.[cite: 1]
+            </p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center scroll-reveal" style="transition-delay: 0.3s;">
+                <a href="#projects" class="magnet-btn px-8 py-4 bg-brandPrimary text-titleMain font-display font-semibold text-sm tracking-wider uppercase rounded-xl shadow-lg shadow-brandPrimary/20 hover:shadow-brandPrimary/40 transition-all border border-brandPrimary/30">
+                    View Work[cite: 1]
+                </a>
+                <a href="#philosophy" class="magnet-btn px-8 py-4 bg-transparent text-brandSecondary font-display font-semibold text-sm tracking-wider uppercase rounded-xl border border-brandSecondary/30 hover:bg-brandSecondary/10 transition-all">
+                    Explore Philosophy[cite: 1]
+                </a>
+            </div>
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-30 animate-bounce">
+                <span class="text-[10px] uppercase tracking-widest font-display text-brandTertiary mb-2">[Scroll Indicator]</span>
+                <svg class="w-4 h-4 text-brandTertiary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </div>
+        </section>
+
+
+        <!-- 2. EXPERIENCE INTELLIGENCE (PHILOSOPHY) -->
+        <section id="philosophy" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto py-28">
+            <div class="mb-14 scroll-reveal">
+                <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Philosophy</span>
+                <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">Experience Intelligence</h2>
+                <p class="text-titleSecond text-lg mt-2 font-light">A philosophy for designing meaningful experiences.[cite: 1]</p>
+            </div>
+            
+            <!-- MAGIC BENTO GRID CONTAINER -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Large Card Hero Statement -->
+                <div class="md:col-span-2 glass-panel rounded-2xl p-8 flex flex-col justify-between group hover:border-brandPrimary/40 transition-all duration-300 scroll-reveal">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brandPrimary/10 border border-brandPrimary/20 flex items-center justify-center text-brandPrimary mb-8 group-hover:scale-110 transition-transform">
+                            <!-- Custom Sync Icon -->
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5"/></svg>
+                        </div>
+                        <p class="text-titleMain font-display text-xl md:text-2xl font-normal leading-relaxed mb-8">
+                            Great experiences emerge when human understanding, design thinking, and technological possibility work together toward a common purpose.[cite: 1]
+                        </p>
+                    </div>
+                    <p class="text-textContent font-light text-sm md:text-base leading-relaxed tracking-wide">
+                        Experience Intelligence is my approach to design. It is the practice of understanding people deeply, designing intentionally, and leveraging technology thoughtfully to create experiences that are both useful and meaningful.[cite: 1] Rather than designing for technology alone, I focus on how technology can enhance human experiences, strengthen connections, and create lasting value.[cite: 1]
+                    </p>
+                </div>
+                
+                <!-- Side Secondary Pillar Card -->
+                <div class="glass-panel rounded-2xl p-8 flex flex-col justify-between group hover:border-brandSecondary/40 transition-all duration-300 scroll-reveal" style="transition-delay: 0.1s;">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brandSecondary/10 border border-brandSecondary/20 flex items-center justify-center text-brandSecondary mb-8 group-hover:scale-110 transition-transform">
+                            <!-- Custom Core Hex Icon -->
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25"/></svg>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-titleMain mb-4">Card: [ Center aligned ][cite: 1]</h3>
+                        <p class="text-textContent font-light text-sm leading-relaxed tracking-wide">
+                            At its core, Experience Intelligence is about transforming insight into impact.[cite: 1]
+                        </p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-brandTertiary/10 flex justify-between items-center text-[10px] text-brandTertiary uppercase tracking-widest font-display font-semibold">
+                        <span>Insight</span>
+                        <svg class="w-4 h-4 text-brandSecondary animate-pulse" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        <span>Impact</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 3. AREAS OF EXPERTISE -->
+        <section id="expertise" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto py-28 relative">
+            <div class="mb-16 scroll-reveal">
+                <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Expertise</span>
+                <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">Areas of Expertise</h2>
+                <p class="text-titleSecond text-lg mt-2 font-light">Designing experiences through strategy, craft, and emerging technology.[cite: 1]</p>
+                <p class="text-textContent font-light text-sm max-w-2xl mt-4 leading-relaxed tracking-wide">My work combines user-centered thinking, visual design, and technological awareness to create digital experiences that are intuitive, scalable, and future-ready.[cite: 1]</p>
+            </div>
+
+            <!-- SPOTLIGHT CARDS CONTAINER -->
+            <div id="spotlight-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="spotlight-card glass-panel relative overflow-hidden rounded-xl p-8 transition-all duration-300 group hover:border-brandPrimary/40 scroll-reveal">
+                    <div class="relative z-10">
+                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-4">Pillar // 01[cite: 1]</div>
+                        <h3 class="font-display font-bold text-xl text-titleMain mb-3 group-hover:text-brandSecondary transition-colors">UX Strategy[cite: 1]</h3>
+                        <p class="text-brandSecondary font-medium text-xs mb-4 leading-relaxed">Transforming research and insights into clear product direction.[cite: 1]</p>
+                        <p class="text-textContent font-light text-xs leading-relaxed tracking-wide mb-4">I uncover user needs, identify opportunities, and define experience strategies that align business goals with meaningful user outcomes.[cite: 1]</p>
+                        <p class="text-brandTertiary/70 font-light text-xs leading-relaxed tracking-wide">From user journeys and information architecture to experience frameworks and problem definition, every decision is grounded in understanding people.[cite: 1]</p>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="spotlight-card glass-panel relative overflow-hidden rounded-xl p-8 transition-all duration-300 group hover:border-brandPrimary/40 scroll-reveal" style="transition-delay: 0.1s;">
+                    <div class="relative z-10">
+                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-4">Pillar // 02[cite: 1]</div>
+                        <h3 class="font-display font-bold text-xl text-titleMain mb-3 group-hover:text-brandSecondary transition-colors">UI Design[cite: 1]</h3>
+                        <p class="text-brandSecondary font-medium text-xs mb-4 leading-relaxed">Crafting interfaces that balance clarity, usability, and visual excellence.[cite: 1]</p>
+                        <p class="text-textContent font-light text-xs leading-relaxed tracking-wide mb-4">I design intuitive digital experiences through thoughtful layouts, interaction patterns, design systems, and responsive interfaces.[cite: 1]</p>
+                        <p class="text-brandTertiary/70 font-light text-xs leading-relaxed tracking-wide">Every visual element is created to support functionality while maintaining consistency and aesthetic refinement.[cite: 1]</p>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="spotlight-card glass-panel relative overflow-hidden rounded-xl p-8 transition-all duration-300 group hover:border-brandPrimary/40 scroll-reveal" style="transition-delay: 0.2s;">
+                    <div class="relative z-10">
+                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-4">Pillar // 03[cite: 1]</div>
+                        <h3 class="font-display font-bold text-xl text-titleMain mb-3 group-hover:text-brandSecondary transition-colors">AI-Aware Design[cite: 1]</h3>
+                        <p class="text-brandSecondary font-medium text-xs mb-4">Designing experiences for an evolving technological landscape.[cite: 1]</p>
+                        <p class="text-textContent font-light text-xs leading-relaxed tracking-wide mb-4">As intelligent systems become part of everyday products, I explore how AI can enhance experiences without compromising usability or human understanding.[cite: 1]</p>
+                        <p class="text-brandTertiary/70 font-light text-xs leading-relaxed tracking-wide">My focus is on creating interactions that feel transparent, trustworthy, and genuinely valuable to users.[cite: 1]</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 4. THE FRAMEWORK -->
+        <section id="framework" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto py-24">
+            <div class="mb-16 scroll-reveal">
+                <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Process</span>
+                <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">The Framework</h2>
+                <p class="text-titleSecond text-lg mt-2 font-light">From understanding to impact.[cite: 1]</p>
+                <p class="text-textContent font-light text-sm max-w-2xl mt-4 leading-relaxed tracking-wide">Every project follows a structured process designed to uncover meaningful insights and translate them into effective experiences.[cite: 1]</p>
+            </div>
+
+            <!-- TIMELINE SEQUENCE LAYOUT -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+                <!-- Step 1 -->
+                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group">
+                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">01</div>
+                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Discover[cite: 1]</h3>
+                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Researching users, behaviors, and opportunities.[cite: 1]</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group" style="transition-delay: 0.05s;">
+                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">02</div>
+                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Define[cite: 1]</h3>
+                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Synthesizing findings and identifying the problems that matter most.[cite: 1]</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group" style="transition-delay: 0.1s;">
+                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">03</div>
+                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Design[cite: 1]</h3>
+                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Creating user flows, wireframes, interfaces, and interaction systems.[cite: 1]</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group" style="transition-delay: 0.15s;">
+                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">04</div>
+                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Validate[cite: 1]</h3>
+                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Testing assumptions, gathering feedback, and improving experiences.[cite: 1]</p>
+                </div>
+                <!-- Step 5 -->
+                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group" style="transition-delay: 0.2s;">
+                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">05</div>
+                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Refine[cite: 1]</h3>
+                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Optimizing outcomes and delivering measurable value.[cite: 1]</p>
+                </div>
+            </div>
+            
+            <p class="text-brandTertiary text-center text-xs font-light max-w-2xl mx-auto mt-14 leading-relaxed tracking-wide scroll-reveal">
+                This framework ensures every decision is intentional, informed, and aligned with both user and business needs.[cite: 1]
+            </p>
+        </section>
+
+
+        <!-- 5. EXPERIENCE DESIGN (PROJECTS) -->
+        <section id="projects" class="max-w-5xl mx-auto px-6 py-28 min-h-screen">
+            <div class="mb-16 scroll-reveal">
+                <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Case Studies</span>
+                <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">Experience Design</h2>
+                <p class="text-titleSecond text-lg mt-2 font-light">Solving meaningful problems through design.[cite: 1]</p>
+                <p class="text-textContent font-light text-sm max-w-2xl mt-4 leading-relaxed mb-3">Every case study represents a unique challenge, shaped by real user needs and business objectives.[cite: 1]</p>
+                <p class="text-brandTertiary font-light text-sm max-w-2xl leading-relaxed">Through research, strategy, and iterative design, I create experiences that simplify complexity, improve usability, and deliver measurable outcomes.[cite: 1]</p>
+            </div>
+
+            <!-- HARDWARE ACCELERATED SCROLL STACK -->
+            <div class="space-y-16">
+                <!-- Card 1 -->
+                <div class="sticky-stack-card glass-panel rounded-2xl p-8 flex flex-col md:flex-row gap-8 min-h-[320px]">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-display text-brandPrimary tracking-widest uppercase font-bold block mb-2">Case Study // 01[cite: 1]</span>
+                            <h3 class="text-2xl font-display font-bold text-titleMain mb-4">Complexity into Clarity[cite: 1]</h3>
+                            <p class="text-textContent font-light text-sm leading-relaxed tracking-wide">
+                                Designing complex product mechanics down into predictable, high-usability customer interfaces. Focuses on filtering dynamic interaction stress parameters seamlessly.[cite: 1]
+                            </p>
+                        </div>
+                        <div class="flex gap-3 mt-6">
+                            <span class="text-[10px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-md text-brandSecondary">UX Strategy[cite: 1]</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-[#0A0A0E]/80 rounded-xl border border-brandTertiary/10 flex items-center justify-center min-h-[180px] relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-brandPrimary/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <span class="text-brandTertiary text-[10px] font-display uppercase tracking-widest opacity-30 relative z-10">[ Structural Vector Framework ]</span>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="sticky-stack-card bg-[#0D0D16] border border-brandSecondary/20 rounded-2xl p-8 flex flex-col md:flex-row gap-8 min-h-[320px]">
+                    <div class="flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-display text-brandSecondary tracking-widest uppercase font-bold block mb-2">Case Study // 02[cite: 1]</span>
+                            <h3 class="text-2xl font-display font-bold text-titleMain mb-4">User-Centered Architecture[cite: 1]</h3>
+                            <p class="text-textContent font-light text-sm leading-relaxed tracking-wide">
+                                Engineering cross-platform layout hierarchies aligned entirely with detailed behavioral research models. Translating complex friction points into simplified click paths.[cite: 1]
+                            </p>
+                        </div>
+                        <div class="flex gap-3 mt-6">
+                            <span class="text-[10px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandSecondary/10 border border-brandSecondary/20 rounded-md text-brandSecondary">Iterative Design[cite: 1]</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 bg-[#0A0A0E]/80 rounded-xl border border-brandTertiary/10 flex items-center justify-center min-h-[180px]/80 relative overflow-hidden group">
+                        <div class="absolute inset-0 bg-gradient-to-br from-brandSecondary/10 to-transparent opacity-50 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <span class="text-brandTertiary text-[10px] font-display uppercase tracking-widest opacity-30 relative z-10">[ Operational Performance Node ]</span>
+                    </div>
+                </div>
+            </div>
+            <p class="text-brandTertiary text-center text-xs mt-14 font-light tracking-wide">These projects demonstrate not only what was designed, but how insights, decisions, and iterations contributed to the final experience.[cite: 1]</p>
+        </section>
+
+
+        <!-- 6. VISUAL DESIGN (GALLERY) -->
+        <section id="gallery" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto py-28">
+            <div class="mb-14 scroll-reveal">
+                <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Interface Exhibition</span>
+                <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">Visual Design</h2>
+                <p class="text-titleSecond text-lg mt-2 font-light">Bringing experiences to life.[cite: 1]</p>
+                <p class="text-textContent text-sm max-w-3xl font-light mt-4 leading-relaxed tracking-wide">Visual design is more than aesthetics. It is the language through which experiences communicate.[cite: 1] This collection explores interface design, interaction design, design systems, and visual explorations that balance clarity, consistency, and craftsmanship.[cite: 1]</p>
+            </div>
+
+            <!-- REFINED 3D TRANSFORM SWAP CONTAINER -->
+            <div class="relative w-full max-w-2xl mx-auto h-[360px] mt-8 flex items-center justify-center">
+                <!-- Card 1 -->
+                <div class="swap-card absolute w-full h-full glass-panel rounded-2xl p-8 flex flex-col justify-between transition-all duration-500 transform cursor-pointer z-30 opacity-100 scale-100 shadow-2xl">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-display font-bold text-xl text-titleMain tracking-tight">Interface & Interaction Explorations[cite: 1]</h4>
+                        <span class="text-xs text-brandPrimary font-display font-bold bg-brandPrimary/10 px-2 py-0.5 rounded">01 / 02</span>
+                    </div>
+                    <div class="h-28 my-4 bg-[#07070A]/80 rounded-xl border border-brandTertiary/5 flex items-center justify-center text-brandTertiary/20 text-xs font-display tracking-widest uppercase">[ Component Blueprint Canvas ]</div>
+                    <p class="text-xs text-textContent font-light leading-relaxed tracking-wide">From product interfaces to scalable design systems, every project reflects a commitment to creating experiences that feel intuitive, cohesive, and engaging.[cite: 1]</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="swap-card absolute w-full h-full bg-[#10101A] border border-brandSecondary/30 rounded-2xl p-8 flex flex-col justify-between transition-all duration-500 transform cursor-pointer z-20 opacity-0 translate-y-4 scale-95 shadow-xl">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-display font-bold text-xl text-titleMain tracking-tight">Scalable Consistency Systems[cite: 1]</h4>
+                        <span class="text-xs text-brandSecondary font-display font-bold bg-brandSecondary/10 px-2 py-0.5 rounded">02 / 02</span>
+                    </div>
+                    <div class="h-28 my-4 bg-[#07070A]/80 rounded-xl border border-brandTertiary/5 flex items-center justify-center text-brandTertiary/20 text-xs font-display tracking-widest uppercase">[ System Configuration Matrix ]</div>
+                    <p class="text-xs text-textContent font-light leading-relaxed tracking-wide">Ensuring granular visual details coordinate perfectly across strict typography standards, advanced layout grid rules, and responsive interface maps.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <button id="next-swap-btn" class="px-6 py-2.5 bg-transparent text-[10px] uppercase tracking-widest font-display font-bold text-brandSecondary border border-brandSecondary/30 rounded-lg hover:bg-brandSecondary/10 hover:border-brandSecondary/60 transition-all">
+                    Cycle Gallery Card
+                </button>
+            </div>
+        </section>
+
+
+        <!-- 7. BEYOND INTERFACES -->
+        <section id="future" class="min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto py-28">
+            <div class="mb-14 scroll-reveal">
+                <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Speculative Space</span>
+                <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">Beyond Interfaces</h2>
+                <p class="text-titleSecond text-lg mt-2 font-light">Exploring the future of experience.[cite: 1]</p>
+                <p class="text-textContent text-sm max-w-2xl font-light mt-4 leading-relaxed tracking-wide">Technology continues to reshape how people interact with products, services, and information.[cite: 1] This space is dedicated to exploring the evolving relationship between design, artificial intelligence, and emerging technologies.[cite: 1]</p>
+            </div>
+
+            <!-- ULTRA GLIDE INTERACTIVE CAROUSEL -->
+            <div class="relative w-full overflow-hidden glass-panel rounded-2xl p-8 shadow-xl">
+                <div id="carousel-track" class="flex transition-transform duration-700 ease-out" style="transform: translateX(0%);">
+                    <!-- Slide 1 -->
+                    <div class="min-w-full pr-6 flex-shrink-0">
+                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-2">// Core Exploration Area 01</div>
+                        <h3 class="text-titleMain font-display text-2xl font-bold mb-4 tracking-tight">Human-AI Interaction & Conversational Experiences[cite: 1]</h3>
+                        <p class="text-textContent font-light leading-relaxed text-sm tracking-wide">Evaluating the exact parameters of natural interface logic. Building responsive nodes that gracefully convert conversational patterns into actionable structured system actions.</p>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="min-w-full pr-6 flex-shrink-0">
+                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-2">// Core Exploration Area 02</div>
+                        <h3 class="text-titleMain font-display text-2xl font-bold mb-4 tracking-tight">Intelligent Workflows & Adaptive Interfaces[cite: 1]</h3>
+                        <p class="text-textContent font-light leading-relaxed text-sm tracking-wide">Constructing highly contextual layout models that morph gracefully depending directly on active operational criteria, compressing complex digital layouts down into simple fields.</p>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="min-w-full pr-6 flex-shrink-0">
+                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-2">// Core Exploration Area 03</div>
+                        <h3 class="text-titleMain font-display text-2xl font-bold mb-4 tracking-tight">Future Product Concepts[cite: 1]</h3>
+                        <p class="text-textContent font-light leading-relaxed text-sm tracking-wide">Responsible forecasting across deep interactive experimental design patterns. The ultimate product objective is not to predict the future, but to design experiences that help shape it responsibly.[cite: 1]</p>
+                    </div>
+                </div>
+                
+                <!-- Controls & Dot Architecture -->
+                <div class="flex justify-between items-center mt-10 pt-4 border-t border-brandTertiary/5">
+                    <div class="flex space-x-2.5" id="carousel-dots">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brandPrimary transition-all duration-300 indicator-dot"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-brandTertiary/20 transition-all duration-300 indicator-dot"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-brandTertiary/20 transition-all duration-300 indicator-dot"></span>
+                    </div>
+                    <button id="next-carousel-btn" class="text-[10px] uppercase font-display font-bold tracking-widest text-brandSecondary hover:text-brandPrimary transition-colors">Next Element &rarr;</button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 8. PERSPECTIVE (ABOUT) -->
+        <section id="about" class="min-h-screen flex flex-col justify-center px-6 max-w-4xl mx-auto py-28">
+            <div class="glass-panel rounded-2xl p-10 shadow-2xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brandPrimary/5 rounded-bl-full pointer-events-none transition-all group-hover:scale-110"></div>
+                <span class="text-xs uppercase tracking-widest font-display text-brandPrimary font-bold block mb-2">Identity</span>
+                <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight mb-2">Perspective</h2>
+                <p class="text-brandSecondary font-display text-base tracking-wide mb-8">The person behind the work.[cite: 1]</p>
+                
+                <div class="space-y-6 font-sans text-sm md:text-base text-textContent font-light leading-relaxed tracking-wide">
+                    <p>
+                        I'm <strong class="text-titleMain font-semibold">Deeksha Udayasankar</strong>, a UI/UX Designer with a background in Visual Communication and a passion for creating thoughtful digital experiences.[cite: 1]
+                    </p>
+                    <p>
+                        My work is driven by curiosity, empathy, and a desire to understand how people interact with the world around them.[cite: 1] I enjoy exploring the intersection of human behavior, design systems, and emerging technologies to create experiences that are not only functional, but meaningful.[cite: 1]
+                    </p>
+                    <p class="italic border-l-2 border-brandPrimary pl-5 text-titleSecond font-normal py-1">
+                        "I believe the most impactful design often feels invisible—guiding people effortlessly while creating clarity where complexity once existed."[cite: 1]
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 9. CONTACT -->
+        <section id="contact" class="min-h-screen flex flex-col justify-between px-6 max-w-5xl mx-auto pt-28 pb-12">
+            <div class="my-auto text-center max-w-3xl mx-auto">
+                <h2 class="font-display font-bold text-4xl md:text-6xl text-titleMain mb-4 tracking-tight scroll-reveal">Contact</h2>
+                <p class="font-display text-xl md:text-2xl text-brandSecondary mb-6 font-medium scroll-reveal" style="transition-delay: 0.1s;">Let's create meaningful experiences together.[cite: 1]</p>
+                <p class="text-textContent font-light text-sm md:text-base mb-4 leading-relaxed tracking-wide scroll-reveal" style="transition-delay: 0.2s;">
+                    Whether you're building a product, exploring new opportunities, or reimagining an existing experience, I'd love to connect.[cite: 1]
+                </p>
+                <p class="text-brandTertiary/80 font-light text-xs md:text-sm mb-12 max-w-xl mx-auto leading-relaxed scroll-reveal" style="transition-delay: 0.25s;">
+                    I'm currently open to opportunities in: <span class="text-titleSecond font-medium">UI/UX Design, Product Design, Experience Design, and AI-Enhanced Experiences.</span> Let's start a conversation and explore what we can create together.[cite: 1]
+                </p>
+                
+                <!-- CONTACT BUTTON MATRIX -->
+                <div class="flex flex-wrap justify-center gap-6 items-center scroll-reveal" style="transition-delay: 0.3s;">
+                    <a href="mailto:deeksha@example.com" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
+                        Email[cite: 1]
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
+                        Linkedin[cite: 1]
+                    </a>
+                    <a href="https://behance.net" target="_blank" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
+                        Behance[cite: 1]
+                    </a>
+                </div>
+            </div>
+
+            <!-- --- GLOBAL FOOTER ARCHITECTURE --- -->
+            <footer class="w-full mt-24 pt-8 border-t border-brandTertiary/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-xs text-brandTertiary font-light tracking-wide">
+                <div class="max-w-md">
+                    <div class="font-display font-bold text-sm text-titleMain mb-1 tracking-wide">Experience Intelligence[cite: 1]</div>
+                    <p class="leading-relaxed text-brandTertiary/70">Designing meaningful experiences through human understanding, thoughtful design, and technological possibility.[cite: 1]</p>
+                </div>
+                <div class="text-left md:text-right font-display text-[11px]">
+                    <span class="text-titleMain block font-bold tracking-wide">Deeksha Udayashankar[cite: 1]</span>
+                    <span class="text-brandTertiary/60">UI/UX Designer &copy; 2026</span>
+                </div>
+            </footer>
+        </section>
+
+    </main>
+
+    <!-- --- OPTIMIZED RUNTIME ENGINE (JAVASCRIPT) --- -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            // 1. HARDWARE ANCHORED SCROLL REVEAL DRIVER
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting){
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.05 });
+            revealElements.forEach(el => revealObserver.observe(el));
+
+
+            // 2. ACTIVE MOUSE COORDINATE SPOTLIGHT MATRICES
+            const spotlightCards = document.querySelectorAll('.spotlight-card');
+            spotlightCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                    card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+                });
+            });
+
+
+            // 3. SPRING INTERPOLATED MAGNET COMPONENTS
+            const magnetButtons = document.querySelectorAll('.magnet-btn');
+            magnetButtons.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = (e.clientX - rect.left - (rect.width / 2)) * 0.4;
+                    const y = (e.clientY - rect.top - (rect.height / 2)) * 0.4;
+                    btn.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = 'translate3d(0px, 0px, 0)';
+                });
+            });
+
+
+            // 4. 3D DEPTHE CARDS SWAP TIMELINE
+            const swapCards = document.querySelectorAll('.swap-card');
+            const nextSwapBtn = document.getElementById('next-swap-btn');
+            let isFirstActive = true;
+
+            function processCardRotation() {
+                isFirstActive = !isFirstActive;
+                if (!isFirstActive) {
+                    // Slide active view array back, shift bottom to priority visibility
+                    swapCards[0].style.transform = 'translate3d(0, -20px, -50px) scale(0.92)';
+                    swapCards[0].style.opacity = '0';
+                    swapCards[0].style.zIndex = '10';
+                    
+                    swapCards[1].style.transform = 'translate3d(0, 0, 0) scale(1)';
+                    swapCards[1].style.opacity = '1';
+                    swapCards[1].style.zIndex = '30';
+                    swapCards[1].classList.remove('opacity-0');
+                } else {
+                    swapCards[0].style.transform = 'translate3d(0, 0, 0) scale(1)';
+                    swapCards[0].style.opacity = '1';
+                    swapCards[0].style.zIndex = '30';
+                    
+                    swapCards[1].style.transform = 'translate3d(0, 20px, -50px) scale(0.95)';
+                    swapCards[1].style.opacity = '0';
+                    swapCards[1].style.zIndex = '10';
+                }
+            }
+            nextSwapBtn.addEventListener('click', processCardRotation);
+            swapCards.forEach(card => card.addEventListener('click', processCardRotation));
+
+
+            // 5. GLIDE INTERACTIVE CAROUSEL
+            const track = document.getElementById('carousel-track');
+            const nextCarouselBtn = document.getElementById('next-carousel-btn');
+            const dots = document.querySelectorAll('.indicator-dot');
+            let activeSlideIndex = 0;
+
+            nextCarouselBtn.addEventListener('click', () => {
+                activeSlideIndex = (activeSlideIndex + 1) % 3;
+                track.style.transform = `translate3d(-${activeSlideIndex * 100}%, 0, 0)`;
+                
+                dots.forEach((dot, index) => {
+                    if (index === activeSlideIndex) {
+                        dot.classList.remove('bg-brandTertiary/20');
+                        dot.classList.add('bg-brandPrimary', 'w-3'); // Extends width slightly to highlight selection
+                    } else {
+                        dot.classList.remove('bg-brandPrimary', 'w-3');
+                        dot.classList.add('bg-brandTertiary/20');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
