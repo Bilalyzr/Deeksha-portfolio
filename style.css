@@ -1,0 +1,466 @@
+body {
+    background-color: #07070A;
+    color: #D0D7E4;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+/* --- PRELOADER: INTERACTIVE NAME REVEAL --- */
+html.is-loading, body.is-loading { overflow: hidden; }
+
+#preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: radial-gradient(ellipse at center, #0B0B12 0%, #07070A 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    transition: opacity 0.9s ease, visibility 0.9s ease, transform 0.9s cubic-bezier(0.7, 0, 0.3, 1);
+    will-change: opacity, transform;
+}
+/* Dismiss: lift + fade the whole curtain upward to reveal the hero */
+#preloader.preloader-done {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-40px);
+}
+
+.preloader-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+.preloader-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+/* Glowing brand dot (larger variant of nav dot) */
+.preloader-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #785BD8;
+    box-shadow: 0 0 18px 4px rgba(120, 91, 216, 0.85);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#preloader.reveal .preloader-dot {
+    opacity: 1;
+    transform: scale(1);
+    animation: brandPulse 2.6s ease-in-out infinite 0.8s;
+}
+
+.preloader-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.15rem, 6vw, 3rem);
+    color: #F5F7FA;
+    letter-spacing: 0.01em;
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: pre;
+    perspective: 600px;
+}
+/* Each letter starts blurred + dropped, then resolves sharp */
+.preloader-name .ch {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(0.55em) rotateX(-40deg);
+    filter: blur(8px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                filter 0.6s ease;
+    will-change: transform, opacity, filter;
+}
+.preloader-name .ch.space { width: 0.32em; }
+#preloader.reveal .preloader-name .ch {
+    opacity: 1;
+    transform: translateY(0) rotateX(0);
+    filter: blur(0);
+}
+
+/* Underline draws across after the letters land */
+.preloader-underline {
+    height: 2px;
+    width: min(380px, 72vw);
+    margin-top: 20px;
+    background: linear-gradient(90deg, transparent, #7185EA 30%, #785BD8 70%, transparent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.15s;
+}
+#preloader.reveal .preloader-underline { transform: scaleX(1); }
+
+.preloader-role {
+    margin-top: 16px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: #7185EA;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.8s ease 1.5s, transform 0.8s ease 1.5s;
+}
+#preloader.reveal .preloader-role {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .preloader-name .ch { transition-duration: 0.2s; filter: none; transform: none; }
+    .preloader-underline, .preloader-role { transition-delay: 0.2s; }
+}
+
+/* --- HIDE SCROLLBAR (scroll stays fully functional) --- */
+html {
+    scrollbar-width: none;        /* Firefox */
+    -ms-overflow-style: none;     /* IE / legacy Edge */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;                /* Chrome / Safari / Edge */
+}
+
+/* --- FINE-TUNED STICKY NAVIGATION HEADER --- */
+.site-nav {
+    background: linear-gradient(180deg, rgba(7, 7, 10, 0.92) 0%, rgba(7, 7, 10, 0.55) 100%);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-bottom: 1px solid rgba(120, 91, 216, 0.12);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.site-nav.nav-scrolled {
+    background: linear-gradient(180deg, rgba(7, 7, 10, 0.97) 0%, rgba(10, 10, 16, 0.8) 100%);
+    border-bottom-color: rgba(120, 91, 216, 0.28);
+    box-shadow: 0 6px 36px rgba(120, 91, 216, 0.12), 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+/* Mobile dropdown menu open state */
+#mobile-menu.menu-open {
+    max-height: 320px;
+    opacity: 1;
+}
+/* Hamburger -> X animation */
+#nav-toggle.is-active .nav-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+#nav-toggle.is-active .nav-bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+#nav-toggle.is-active .nav-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Glowing brand status dot in the logo */
+.brand-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #785BD8;
+    box-shadow: 0 0 10px 2px rgba(120, 91, 216, 0.8);
+    animation: brandPulse 2.6s ease-in-out infinite;
+}
+@keyframes brandPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 10px 2px rgba(120, 91, 216, 0.8); }
+    50%      { opacity: 0.55; box-shadow: 0 0 6px 1px rgba(120, 91, 216, 0.5); }
+}
+
+/* --- FINE-TUNED GLOBAL FOOTER --- */
+.site-footer {
+    position: relative;
+}
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(120, 91, 216, 0.5) 50%, transparent);
+}
+
+/* --- FINE-TUNED VISUAL PATTERN: SPACE SHAPE GRID --- */
+.shape-grid-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(120, 91, 216, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 91, 216, 0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* --- INTERACTIVE PARTICLE NETWORK CANVAS --- */
+#particle-network {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+/* --- CURSOR AURA GLOW (follows pointer) --- */
+#cursor-aura {
+    position: fixed;
+    top: 0; left: 0;
+    width: 480px; height: 480px;
+    margin: -240px 0 0 -240px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(120, 91, 216, 0.12) 0%, rgba(113, 133, 234, 0.05) 35%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    mix-blend-mode: screen;
+    transition: opacity 0.5s ease;
+    will-change: transform;
+}
+
+/* --- SCROLL PROGRESS INDICATOR --- */
+#scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    z-index: 60;
+    background: linear-gradient(90deg, #7185EA, #785BD8 60%, #C8D1DC);
+    box-shadow: 0 0 12px rgba(120, 91, 216, 0.7);
+    pointer-events: none;
+    transition: width 0.12s linear;
+}
+
+/* Smooth Dynamic Radial Atmospheric Back-Glow */
+.ambient-glow {
+    position: fixed;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(119, 91, 216, 0.07) 0%, transparent 65%);
+    top: -10%; right: -10%;
+    z-index: -1;
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+/* --- FINE-TUNED GLASSMORPHISM PATTERN --- */
+.glass-panel {
+    background: linear-gradient(135deg, rgba(18, 18, 26, 0.7) 0%, rgba(10, 10, 15, 0.4) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(120, 91, 216, 0.15);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* --- SCROLL REVEAL / FLOATING MOTION ENGINE --- */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+    transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+}
+.scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* --- HERO SHINY TEXT (GRADIENT INTERPOLATION) --- */
+.shiny-text {
+    background: linear-gradient(to right, #F5F7FA 20%, #7185EA 45%, #785BD8 55%, #F5F7FA 80%);
+    background-size: 200% auto;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: continuousShine 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes continuousShine {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+/* --- ADVANCED LIGHT BEAM ANIMATION --- */
+.beam-emitter {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(113, 133, 234, 0.4), #785BD8, transparent);
+    width: 250px; height: 1px;
+    opacity: 0;
+    transform: rotate(-45deg);
+    pointer-events: none;
+    will-change: top, left, opacity;
+    animation: beamPassage 9s ease-in-out infinite;
+}
+@keyframes beamPassage {
+    0% { top: -20%; left: -20%; opacity: 0; }
+    10% { opacity: 0.8; }
+    50% { opacity: 1; }
+    90% { opacity: 0.8; }
+    100% { top: 120%; left: 120%; opacity: 0; }
+}
+
+/* --- SCROLL-DRIVEN HERO BEAM LIGHT FIELD --- */
+.hero-beam-field {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    /* --scroll: 0 (top) -> 1 (hero fully scrolled past), driven by JS.
+       Beams drift up + fade as the user scrolls, reinforcing motion. */
+    --scroll: 0;
+    opacity: calc(1 - var(--scroll) * 0.85);
+    transform: translateY(calc(var(--scroll) * -80px));
+    transition: opacity 0.15s linear, transform 0.15s linear;
+    will-change: transform, opacity;
+}
+
+/* Individual sweeping vertical light beams */
+.hero-beam {
+    position: absolute;
+    top: -30%;
+    height: 160%;
+    width: 180px;
+    background: linear-gradient(
+        180deg,
+        transparent 0%,
+        rgba(113, 133, 234, 0.05) 25%,
+        rgba(120, 91, 216, 0.22) 50%,
+        rgba(113, 133, 234, 0.05) 75%,
+        transparent 100%
+    );
+    filter: blur(22px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    transform: rotate(14deg);
+    will-change: transform, opacity;
+}
+.hero-beam--1 {
+    left: 12%;
+    animation: heroBeamSweep 7s ease-in-out infinite;
+}
+.hero-beam--2 {
+    left: 46%;
+    width: 130px;
+    animation: heroBeamSweep 9s ease-in-out infinite 1.6s;
+}
+.hero-beam--3 {
+    left: 74%;
+    width: 220px;
+    animation: heroBeamSweep 11s ease-in-out infinite 3.2s;
+}
+
+/* Soft central core glow that fully fills the hero section */
+.hero-beam-core {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: scale(calc(1 + var(--scroll) * 0.18));
+    transform-origin: center 42%;
+    background: radial-gradient(ellipse 75% 65% at 50% 42%, rgba(120, 91, 216, 0.20) 0%, rgba(113, 133, 234, 0.08) 40%, transparent 72%);
+    filter: blur(34px);
+    mix-blend-mode: screen;
+    animation: heroCorePulse 6s ease-in-out infinite;
+    will-change: transform, opacity;
+}
+
+@keyframes heroBeamSweep {
+    0%   { transform: translateX(-40px) rotate(14deg); opacity: 0; }
+    15%  { opacity: 0.7; }
+    50%  { transform: translateX(40px) rotate(14deg); opacity: 1; }
+    85%  { opacity: 0.7; }
+    100% { transform: translateX(-40px) rotate(14deg); opacity: 0; }
+}
+@keyframes heroCorePulse {
+    0%, 100% { opacity: 0.5; }
+    50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-beam, .hero-beam-core { animation: none; opacity: 0.4; }
+    .hero-beam-field { transition: none; }
+}
+
+/* --- PERFORMANCE SPOTLIGHT CARDS --- */
+.spotlight-card {
+    position: relative;
+    will-change: border-color;
+}
+.spotlight-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(400px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(113, 133, 234, 0.4), transparent 60%);
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.spotlight-card:hover::before {
+    opacity: 1;
+}
+
+/* --- STICKY LAYER COMPRESSION (SCROLL STACK) --- */
+.sticky-stack-card {
+    position: sticky;
+    top: 140px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.sticky-stack-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(120, 91, 216, 0.1);
+}
+
+/* --- HARDWARE ACCELERATED MAGNET CONTAINER --- */
+.magnet-btn {
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+}
+
+/* --- RESPONSIVE REFINEMENTS --- */
+/* Tighten the generous desktop section padding on phones (higher specificity
+   than the Tailwind utility so it wins without !important). */
+@media (max-width: 640px) {
+    body .py-28 { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+    body .py-24 { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+    body .pt-28 { padding-top: 5.5rem; }
+    body .pt-24 { padding-top: 5.5rem; }
+
+    /* Sticky stack offset accounts for the shorter mobile header */
+    .sticky-stack-card { top: 90px; }
+
+    /* Cursor aura is pointer-only; hide on small/touch screens */
+    #cursor-aura { display: none; }
+}
+
+/* Disable the trailing cursor aura on touch devices regardless of width */
+@media (hover: none) {
+    #cursor-aura { display: none; }
+}
+
+/* --- ANIMATED LIST (staggered reveal for bullet points) --- */
+.animated-list-item {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    will-change: transform, opacity;
+}
+.animated-list.active .animated-list-item {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+/* Sequential stagger as the list enters view */
+.animated-list.active .animated-list-item:nth-child(1) { transition-delay: 0.05s; }
+.animated-list.active .animated-list-item:nth-child(2) { transition-delay: 0.15s; }
+.animated-list.active .animated-list-item:nth-child(3) { transition-delay: 0.25s; }
+.animated-list.active .animated-list-item:nth-child(4) { transition-delay: 0.35s; }
+.animated-list.active .animated-list-item:nth-child(5) { transition-delay: 0.45s; }
+.animated-list-item:hover {
+    border-color: rgba(120, 91, 216, 0.5);
+    color: #F5F7FA;
+}
