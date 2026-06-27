@@ -1,39 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth select-none">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deeksha Udayasankar | Experience Intelligence Portfolio</title>
-    <!-- Tailwind CSS CDN for utility framework alignment -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inline SVG favicon (brand dot) — avoids the /favicon.ico 404 -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='9' fill='%23785BD8'/%3E%3C/svg%3E">
     <!-- Google Fonts: Space Grotesk (Headers) & Inter (Body Copy) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brandPrimary: '#785BD8',    /* Core Accent Purple */
-                        brandSecondary: '#7185EA',  /* Bright Violet-Blue */
-                        brandTertiary: '#C8D1DC',   /* Light Metallic Gray */
-                        bgDark: '#07070A',          /* Deep Space Matte Black */
-                        titleMain: '#F5F7FA',       /* Stark White Titles */
-                        titleSecond: '#D7DDE8',     /* Soft Muted Indigo Subtitles */
-                        textContent: '#D0D7E4'      /* High Readability Content Gray */
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Space Grotesk', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    
+
+    <!-- Project styles, then the hand-written utility classes that replace Tailwind -->
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="tw-compat.css">
 </head>
 <body class="antialiased">
 
@@ -42,7 +22,7 @@
         <div class="preloader-inner">
             <div class="preloader-row">
                 <span class="preloader-dot"></span>
-                <h1 class="preloader-name" data-name="Deeksha Udayasankar" aria-label="Deeksha Udayasankar"></h1>
+                <div class="preloader-name" data-name="Deeksha Udayasankar" aria-label="Deeksha Udayasankar"></div>
             </div>
             <div class="preloader-underline"></div>
             <span class="preloader-role">UI / UX Designer</span>
@@ -65,18 +45,31 @@
 
     <!-- --- GLOBAL STICKY NAVIGATION HEADER --- -->
     <nav class="site-nav fixed top-0 left-0 w-full z-50 px-5 sm:px-6 py-3.5 sm:py-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center gap-4">
-            <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 font-display font-bold text-titleMain tracking-wide text-base sm:text-lg group min-w-0">
+        <div class="max-w-7xl mx-auto flex justify-between items-center gap-4 md:grid md:grid-cols-[1fr_auto_1fr]">
+            <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 font-display font-bold text-titleMain tracking-wide text-base sm:text-lg group min-w-0 md:justify-self-start">
                 <span class="brand-dot shrink-0"></span>
                 <span class="leading-none truncate">
                     Deeksha Udayasankar <span class="text-[10px] sm:text-xs font-normal text-brandSecondary block group-hover:text-brandPrimary transition-colors mt-0.5">UI/UX Designer</span>
                 </span>
             </a>
 
-            <!-- Desktop links -->
-            <div class="hidden md:flex space-x-8 font-sans text-xs uppercase tracking-widest font-semibold">
+            <!-- Desktop links (centered) -->
+            <div class="hidden md:flex md:justify-self-center items-center space-x-8 font-sans text-xs uppercase tracking-widest font-semibold">
                 <a href="#expertise" class="text-textContent hover:text-brandSecondary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brandSecondary hover:after:w-full after:transition-all">Expertise</a>
                 <a href="#framework" class="text-textContent hover:text-brandSecondary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brandSecondary hover:after:w-full after:transition-all">Framework</a>
+
+                <!-- Small 3D UI/UX cube nestled between the links -->
+                <div class="nav-cube" aria-hidden="true" title="UI / UX Design">
+                    <div class="cube">
+                        <div class="cube-face cube-face--front"><span class="cube-glyph">UI</span></div>
+                        <div class="cube-face cube-face--back"><span class="cube-glyph">UX</span></div>
+                        <div class="cube-face cube-face--right"><span class="cube-glyph">WF</span></div>
+                        <div class="cube-face cube-face--left"><span class="cube-glyph">PT</span></div>
+                        <div class="cube-face cube-face--top"><span class="cube-glyph">RS</span></div>
+                        <div class="cube-face cube-face--bottom"><span class="cube-glyph">DS</span></div>
+                    </div>
+                </div>
+
                 <a href="#about" class="text-textContent hover:text-brandSecondary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brandSecondary hover:after:w-full after:transition-all">About</a>
                 <a href="#contact" class="text-textContent hover:text-brandSecondary transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-brandSecondary hover:after:w-full after:transition-all">Contact</a>
             </div>
@@ -90,7 +83,7 @@
         </div>
 
         <!-- Mobile dropdown menu -->
-        <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-400 ease-out">
+        <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 opacity-0 transition-all duration-500 ease-out">
             <div class="flex flex-col mt-3 pt-3 border-t border-brandPrimary/10 font-sans text-sm uppercase tracking-widest font-semibold">
                 <a href="#expertise" class="mobile-link py-3 text-textContent hover:text-brandSecondary hover:pl-2 transition-all border-b border-brandTertiary/5">Expertise</a>
                 <a href="#framework" class="mobile-link py-3 text-textContent hover:text-brandSecondary hover:pl-2 transition-all border-b border-brandTertiary/5">Framework</a>
@@ -467,9 +460,9 @@
                 <div class="flex flex-wrap justify-center gap-6 items-center scroll-reveal" style="transition-delay: 0.3s;">
                     <a href="mailto:deeksha@example.com" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
                         Email                    </a>
-                    <a href="https://linkedin.com" target="_blank" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
                         Linkedin                    </a>
-                    <a href="https://behance.net" target="_blank" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
+                    <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
                         Behance                    </a>
                 </div>
             </div>
@@ -485,8 +478,8 @@
                 </div>
                 <div class="flex flex-col items-start md:items-end gap-3">
                     <div class="flex gap-5 font-display text-[10px] uppercase tracking-widest font-semibold">
-                        <a href="https://linkedin.com" target="_blank" class="text-brandTertiary/70 hover:text-brandSecondary transition-colors">LinkedIn</a>
-                        <a href="https://behance.net" target="_blank" class="text-brandTertiary/70 hover:text-brandSecondary transition-colors">Behance</a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-brandTertiary/70 hover:text-brandSecondary transition-colors">LinkedIn</a>
+                        <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="text-brandTertiary/70 hover:text-brandSecondary transition-colors">Behance</a>
                         <a href="mailto:deeksha@example.com" class="text-brandTertiary/70 hover:text-brandSecondary transition-colors">Email</a>
                     </div>
                     <div class="text-left md:text-right font-display text-[11px]">

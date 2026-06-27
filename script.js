@@ -195,7 +195,19 @@ document.addEventListener("DOMContentLoaded", () => {
             pointer.active = true;
         }, { passive: true });
         window.addEventListener('mouseout', () => { pointer.active = false; });
-        window.addEventListener('resize', resize);
+        // Keep the canvas buffer matched to the viewport so it never stretches,
+        // but only regenerate the particle field on a real width change. This
+        // avoids both the background "zoom" and a costly rebuild on every mobile
+        // address-bar toggle while scrolling.
+        let lastWidth = window.innerWidth;
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            if (window.innerWidth !== lastWidth) {
+                lastWidth = window.innerWidth;
+                resize();
+            }
+        });
 
         resize();
         step();
