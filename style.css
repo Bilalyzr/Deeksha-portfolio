@@ -123,9 +123,12 @@ html.is-loading, body.is-loading { overflow: hidden; }
    That regrows every full-height section mid-scroll, shifting content downward
    and making the page appear to "jump back up". The small viewport height unit
    (svh) is constant, so sections no longer change size while scrolling. */
+/* `body ` prefix raises specificity above Tailwind's own .min-h-screen,
+   which the CDN injects later and would otherwise win the tie and keep 100vh.
+   --vh-stable is written once by script.js (and only on real width changes), so
+   on browsers without svh the height is still frozen against address-bar resize. */
+body .min-h-screen { min-height: var(--vh-stable, 100vh); }
 @supports (min-height: 100svh) {
-    /* `body ` prefix raises specificity above Tailwind's own .min-h-screen,
-       which the CDN injects later and would otherwise win the tie and keep 100vh. */
     body .min-h-screen { min-height: 100svh; }
 }
 
@@ -200,17 +203,7 @@ body::-webkit-scrollbar {
     50%      { opacity: 0.55; box-shadow: 0 0 6px 1px rgba(120, 91, 216, 0.5); }
 }
 
-/* --- FINE-TUNED GLOBAL FOOTER --- */
-.site-footer {
-    position: relative;
-}
-.site-footer::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(120, 91, 216, 0.5) 50%, transparent);
-}
+
 
 /* --- FINE-TUNED VISUAL PATTERN: SPACE SHAPE GRID --- */
 .shape-grid-bg {
@@ -309,107 +302,7 @@ body::-webkit-scrollbar {
     100% { background-position: -200% center; }
 }
 
-/* --- ADVANCED LIGHT BEAM ANIMATION --- */
-.beam-emitter {
-    position: absolute;
-    background: linear-gradient(90deg, transparent, rgba(113, 133, 234, 0.4), #785BD8, transparent);
-    width: 250px; height: 1px;
-    opacity: 0;
-    transform: rotate(-45deg);
-    pointer-events: none;
-    will-change: top, left, opacity;
-    animation: beamPassage 9s ease-in-out infinite;
-}
-@keyframes beamPassage {
-    0% { top: -20%; left: -20%; opacity: 0; }
-    10% { opacity: 0.8; }
-    50% { opacity: 1; }
-    90% { opacity: 0.8; }
-    100% { top: 120%; left: 120%; opacity: 0; }
-}
 
-/* --- SCROLL-DRIVEN HERO BEAM LIGHT FIELD --- */
-.hero-beam-field {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-    /* --scroll: 0 (top) -> 1 (hero fully scrolled past), driven by JS.
-       Beams drift up + fade as the user scrolls, reinforcing motion. */
-    --scroll: 0;
-    opacity: calc(1 - var(--scroll) * 0.85);
-    transform: translateY(calc(var(--scroll) * -80px));
-    transition: opacity 0.15s linear, transform 0.15s linear;
-    will-change: transform, opacity;
-}
-
-/* Individual sweeping vertical light beams */
-.hero-beam {
-    position: absolute;
-    top: -30%;
-    height: 160%;
-    width: 180px;
-    background: linear-gradient(
-        180deg,
-        transparent 0%,
-        rgba(113, 133, 234, 0.05) 25%,
-        rgba(120, 91, 216, 0.22) 50%,
-        rgba(113, 133, 234, 0.05) 75%,
-        transparent 100%
-    );
-    filter: blur(22px);
-    mix-blend-mode: screen;
-    opacity: 0;
-    transform: rotate(14deg);
-    will-change: transform, opacity;
-}
-.hero-beam--1 {
-    left: 12%;
-    animation: heroBeamSweep 7s ease-in-out infinite;
-}
-.hero-beam--2 {
-    left: 46%;
-    width: 130px;
-    animation: heroBeamSweep 9s ease-in-out infinite 1.6s;
-}
-.hero-beam--3 {
-    left: 74%;
-    width: 220px;
-    animation: heroBeamSweep 11s ease-in-out infinite 3.2s;
-}
-
-/* Soft central core glow that fully fills the hero section */
-.hero-beam-core {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    transform: scale(calc(1 + var(--scroll) * 0.18));
-    transform-origin: center 42%;
-    background: radial-gradient(ellipse 75% 65% at 50% 42%, rgba(120, 91, 216, 0.20) 0%, rgba(113, 133, 234, 0.08) 40%, transparent 72%);
-    filter: blur(34px);
-    mix-blend-mode: screen;
-    animation: heroCorePulse 6s ease-in-out infinite;
-    will-change: transform, opacity;
-}
-
-@keyframes heroBeamSweep {
-    0%   { transform: translateX(-40px) rotate(14deg); opacity: 0; }
-    15%  { opacity: 0.7; }
-    50%  { transform: translateX(40px) rotate(14deg); opacity: 1; }
-    85%  { opacity: 0.7; }
-    100% { transform: translateX(-40px) rotate(14deg); opacity: 0; }
-}
-@keyframes heroCorePulse {
-    0%, 100% { opacity: 0.5; }
-    50%      { opacity: 1; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .hero-beam, .hero-beam-core { animation: none; opacity: 0.4; }
-    .hero-beam-field { transition: none; }
-}
 
 /* --- PERFORMANCE SPOTLIGHT CARDS --- */
 .spotlight-card {
@@ -495,8 +388,8 @@ body::-webkit-scrollbar {
    A tiny rotating cube tucked between the centre nav links. Each face names a
    facet of UI/UX design. Edge = 34px, so faces sit 17px out from the centre. */
 .nav-cube {
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
     perspective: 240px;
     flex-shrink: 0;
 }
@@ -513,20 +406,20 @@ body::-webkit-scrollbar {
 
 .nav-cube .cube-face {
     position: absolute;
-    width: 34px;
-    height: 34px;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid rgba(120, 91, 216, 0.4);
-    border-radius: 6px;
+    border-radius: 4px;
     background: linear-gradient(135deg, rgba(24, 24, 34, 0.92) 0%, rgba(12, 12, 18, 0.7) 100%);
     box-shadow: inset 0 0 12px rgba(120, 91, 216, 0.18);
 }
 .nav-cube .cube-glyph {
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
-    font-size: 0.6rem;
+    font-size: 0.45rem;
     line-height: 1;
     letter-spacing: 0.02em;
     background: linear-gradient(135deg, #7185EA 0%, #785BD8 100%);
@@ -534,13 +427,13 @@ body::-webkit-scrollbar {
     background-clip: text;
     color: transparent;
 }
-/* Position each face 17px out from the centre (half the 34px edge) */
-.nav-cube .cube-face--front  { transform: rotateY(0deg)   translateZ(17px); }
-.nav-cube .cube-face--back   { transform: rotateY(180deg) translateZ(17px); }
-.nav-cube .cube-face--right  { transform: rotateY(90deg)  translateZ(17px); }
-.nav-cube .cube-face--left   { transform: rotateY(-90deg) translateZ(17px); }
-.nav-cube .cube-face--top    { transform: rotateX(90deg)  translateZ(17px); }
-.nav-cube .cube-face--bottom { transform: rotateX(-90deg) translateZ(17px); }
+/* Position each face 12px out from the centre (half the 24px edge) */
+.nav-cube .cube-face--front  { transform: rotateY(0deg)   translateZ(12px); }
+.nav-cube .cube-face--back   { transform: rotateY(180deg) translateZ(12px); }
+.nav-cube .cube-face--right  { transform: rotateY(90deg)  translateZ(12px); }
+.nav-cube .cube-face--left   { transform: rotateY(-90deg) translateZ(12px); }
+.nav-cube .cube-face--top    { transform: rotateX(90deg)  translateZ(12px); }
+.nav-cube .cube-face--bottom { transform: rotateX(-90deg) translateZ(12px); }
 
 @keyframes cubeSpin {
     0%   { transform: rotateX(-22deg) rotateY(0deg); }
@@ -551,3 +444,844 @@ body::-webkit-scrollbar {
 @media (prefers-reduced-motion: reduce) {
     .nav-cube .cube { animation: none; transform: rotateX(-22deg) rotateY(-35deg); }
 }
+
+/* --- MOBILE NAV: KEEP IT VISIBLE WHILE SCROLLING ---
+   Mobile browsers (notably iOS Safari) drop the compositing layer of a fixed
+   element that uses backdrop-filter mid-scroll, making the whole header blink
+   out. Painting a solid, opaque background on phones means the bar — and its
+   logo / hamburger — stay visible regardless of whether the blur layer holds.
+   These rules sit after the base .site-nav declarations so they win on mobile. */
+@media (max-width: 767px) {
+    .site-nav {
+        background: rgba(7, 7, 10, 0.97);
+        /* Drop the blur on phones; it's the source of the layer-drop bug and
+           costs the most on mobile GPUs. The solid bg above replaces it. */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+    .site-nav.nav-scrolled {
+        background: rgba(8, 8, 12, 0.99);
+    }
+}
+
+/* --- INTERACTIVE FRAMEWORK SPLIT & ORBITAL DIAL LAYOUT --- */
+#framework-detail-card {
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out, border-color 0.3s ease-out;
+}
+.fw-step-trigger {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.fw-step-trigger.active-step {
+    border-color: rgba(120, 91, 216, 0.45) !important;
+    background: linear-gradient(135deg, rgba(120, 91, 216, 0.08) 0%, rgba(18, 18, 26, 0.8) 100%) !important;
+    box-shadow: 0 4px 20px 0 rgba(120, 91, 216, 0.12);
+}
+
+/* Orbital Node Coordinates around 500x500 container */
+.orbital-node-1 { left: 50%; top: 10%; }
+.orbital-node-2 { left: 88%; top: 37.6%; }
+.orbital-node-3 { left: 73.5%; top: 82.4%; }
+.orbital-node-4 { left: 26.5%; top: 82.4%; }
+.orbital-node-5 { left: 12%; top: 37.6%; }
+
+.fw-orbital-node {
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+}
+.fw-orbital-node:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+.fw-orbital-node.active-node {
+    border-color: rgba(120, 91, 216, 0.6) !important;
+    background: linear-gradient(135deg, rgba(120, 91, 216, 0.15) 0%, rgba(18, 18, 26, 0.9) 100%) !important;
+    box-shadow: 0 0 25px 0 rgba(120, 91, 216, 0.35);
+    color: #7185EA !important;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+#framework-hub {
+    transition: opacity 0.3s ease-out, transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease-out;
+}
+
+/* --- NEW PREMIUM CONTACT SECTION STYLES --- */
+.contact-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 2rem;
+}
+
+.contact-info-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.contact-badge {
+    display: inline-block;
+    color: var(--brandSecondary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+.contact-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3rem);
+    line-height: 1.15;
+    color: var(--titleMain);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.contact-subtitle {
+    color: var(--textContent);
+    font-weight: 300;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 520px;
+}
+
+.contact-status-card,
+.contact-location-card {
+    display: flex;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    border-radius: 14px;
+    border: 1px solid rgba(120, 91, 216, 0.08);
+    background: rgba(18, 18, 26, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.3s ease;
+}
+
+.contact-status-card:hover,
+.contact-location-card:hover {
+    border-color: rgba(120, 91, 216, 0.2);
+    background: rgba(18, 18, 26, 0.5);
+    transform: translateY(-2px);
+}
+
+.status-beacon {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin-top: 6px;
+    flex-shrink: 0;
+}
+
+.beacon-dot {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: #10B981;
+}
+
+.beacon-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: #10B981;
+    opacity: 0.4;
+    animation: beaconPulse 2s infinite ease-out;
+}
+
+@keyframes beaconPulse {
+    0% { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(3.5); opacity: 0; }
+}
+
+.location-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--brandSecondary);
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.status-text,
+.location-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.status-label {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--brandSecondary);
+    opacity: 0.85;
+}
+
+.status-val {
+    font-size: 13.5px;
+    color: var(--titleSecond);
+    line-height: 1.4;
+}
+
+.contact-tags-wrapper {
+    margin-top: 0.5rem;
+}
+
+.tags-title {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--brandSecondary);
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.contact-tags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.contact-tag-item {
+    font-size: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    color: var(--titleSecond);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid rgba(120, 91, 216, 0.1);
+    background: rgba(18, 18, 26, 0.25);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-tag-item:hover {
+    border-color: rgba(120, 91, 216, 0.45);
+    background: rgba(120, 91, 216, 0.08);
+    transform: translateY(-2px);
+    color: var(--titleMain);
+}
+
+/* --- 3D VIEWPORT CONTAINER --- */
+.contact-model-panel {
+    border-radius: 20px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 480px;
+    background: rgba(18, 18, 26, 0.25);
+    border: 1px solid rgba(120, 91, 216, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    perspective: 1400px;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.contact-model-panel:hover {
+    border-color: rgba(120, 91, 216, 0.35);
+    box-shadow: 0 12px 40px 0 rgba(120, 91, 216, 0.08);
+}
+
+/* 3D Scene Viewport */
+.viewport-3d {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+/* Design Stack Container (Holds all layers) */
+.design-stack {
+    position: relative;
+    width: 290px;
+    height: 380px;
+    transform-style: preserve-3d;
+    transform: rotateX(54deg) rotateY(0deg) rotateZ(-45deg);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+/* Base Layer styling */
+.layer-card {
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    background: rgba(10, 10, 15, 0.65);
+    border: 1.5px solid rgba(120, 91, 216, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 1.5rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    transform-style: preserve-3d;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.8s ease, 
+                background-color 0.8s ease,
+                box-shadow 0.8s ease;
+}
+
+/* --- Exploding Hover Configuration --- */
+.layer-wireframe {
+    transform: translateZ(-25px);
+    opacity: 0.75;
+}
+
+.layer-ui {
+    transform: translateZ(5px);
+    opacity: 0.9;
+}
+
+.layer-ux {
+    transform: translateZ(35px);
+    opacity: 0.95;
+}
+
+/* Expanding separation on hover */
+.contact-model-panel:hover .layer-wireframe {
+    transform: translateZ(-85px);
+    opacity: 0.4;
+    border-color: rgba(113, 133, 234, 0.15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.contact-model-panel:hover .layer-ui {
+    transform: translateZ(0px);
+    opacity: 0.95;
+    border-color: rgba(120, 91, 216, 0.45);
+    background: rgba(12, 12, 18, 0.75);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+}
+
+.contact-model-panel:hover .layer-ux {
+    transform: translateZ(85px);
+    opacity: 1;
+    border-color: rgba(16, 185, 129, 0.5);
+    background: rgba(15, 23, 20, 0.2);
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.15);
+}
+
+/* --- Layer Details Content --- */
+
+/* Layer 1: Wireframe Details */
+.layer-wireframe-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-size: 20px 20px;
+    background-image: 
+        linear-gradient(to right, rgba(113, 133, 234, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(113, 133, 234, 0.06) 1px, transparent 1px);
+    pointer-events: none;
+}
+
+.wireframe-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    height: 100%;
+}
+
+.wf-header {
+    height: 32px;
+    border: 1px dashed rgba(113, 133, 234, 0.3);
+    border-radius: 6px;
+    position: relative;
+}
+
+.wf-header::after {
+    content: 'HEADER';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 7px;
+    font-family: 'Space Grotesk', sans-serif;
+    color: rgba(113, 133, 234, 0.4);
+    letter-spacing: 0.1em;
+}
+
+.wf-hero {
+    height: 120px;
+    border: 1px dashed rgba(113, 133, 234, 0.3);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.wf-hero::before,
+.wf-hero::after {
+    content: '';
+    position: absolute;
+    background: rgba(113, 133, 234, 0.08);
+}
+.wf-hero::before {
+    top: 0; bottom: 0; left: 50%; width: 1px;
+}
+.wf-hero::after {
+    left: 0; right: 0; top: 50%; height: 1px;
+}
+
+.wf-hero-label {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 7.5px;
+    font-family: 'Space Grotesk', sans-serif;
+    color: rgba(113, 133, 234, 0.4);
+    letter-spacing: 0.1em;
+}
+
+.wf-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.wf-card {
+    height: 80px;
+    border: 1px dashed rgba(113, 133, 234, 0.25);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.wf-card-circle {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px dashed rgba(113, 133, 234, 0.3);
+}
+
+.wf-card-line {
+    height: 6px;
+    border-radius: 3px;
+    background: rgba(113, 133, 234, 0.15);
+}
+
+.wf-card-line-short {
+    width: 60%;
+}
+
+.wf-tag {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--brandSecondary);
+    opacity: 0.6;
+    letter-spacing: 0.05em;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+
+/* Layer 2: Visual UI Details */
+.ui-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    height: 100%;
+}
+
+.ui-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+}
+
+.ui-logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ui-logo-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--brandPrimary);
+    box-shadow: 0 0 8px var(--brandPrimary);
+}
+
+.ui-logo-text {
+    font-size: 9px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: var(--titleMain);
+}
+
+.ui-nav-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.ui-nav-dot {
+    width: 14px;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(208, 215, 228, 0.15);
+}
+
+.ui-nav-dot.active {
+    background: var(--brandSecondary);
+}
+
+.ui-hero-card {
+    height: 120px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, rgba(120, 91, 216, 0.15) 0%, rgba(18, 18, 26, 0.9) 100%);
+    border: 1px solid rgba(120, 91, 216, 0.2);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: inset 0 0 15px rgba(120, 91, 216, 0.1);
+}
+
+.ui-hero-label {
+    font-size: 8px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--brandSecondary);
+}
+
+.ui-hero-title {
+    font-size: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: var(--titleMain);
+}
+
+.ui-hero-desc {
+    font-size: 9px;
+    color: var(--textContent);
+    opacity: 0.8;
+    line-height: 1.4;
+    font-weight: 300;
+}
+
+.ui-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.ui-card {
+    height: 80px;
+    border-radius: 8px;
+    background: rgba(18, 18, 26, 0.7);
+    border: 1px solid rgba(200, 209, 220, 0.08);
+    padding: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ui-card-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ui-card-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #7185EA, #785BD8);
+}
+
+.ui-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-grow: 1;
+}
+
+.ui-card-title {
+    font-size: 8px;
+    font-weight: 600;
+    color: var(--titleMain);
+}
+
+.ui-card-subtitle {
+    font-size: 6px;
+    color: var(--brandTertiary);
+}
+
+.ui-card-chart {
+    height: 24px;
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    padding-top: 4px;
+}
+
+.ui-chart-bar {
+    flex-grow: 1;
+    border-radius: 2px;
+    background: rgba(113, 133, 234, 0.15);
+}
+
+.ui-chart-bar.val-1 { height: 40%; }
+.ui-chart-bar.val-2 { height: 75%; background: linear-gradient(to top, var(--brandPrimary), var(--brandSecondary)); }
+.ui-chart-bar.val-3 { height: 55%; }
+.ui-chart-bar.val-4 { height: 90%; background: linear-gradient(to top, var(--brandPrimary), var(--brandSecondary)); }
+
+.ui-tag {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size: 8px;
+    font-weight: 700;
+    color: var(--brandPrimary);
+    letter-spacing: 0.05em;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+
+/* Layer 3: UX Flow Details */
+.ux-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+.ux-badge {
+    align-self: flex-start;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #10B981;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    margin-left: 10px; /* Push in from left edge to avoid border overlap */
+}
+
+/* User Flow Connecting Nodes */
+.ux-nodes-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.ux-node {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #10B981;
+    border: 2px solid #07070A;
+    box-shadow: 0 0 8px #10B981;
+    transform: translate(-50%, -50%); /* Centered precisely on connection coordinates */
+}
+
+/* Node layout matching UI points */
+.ux-node-1 { left: 40px; top: 100px; }
+.ux-node-2 { left: 200px; top: 100px; }
+.ux-node-3 { left: 70px; top: 240px; }
+.ux-node-4 { left: 170px; top: 240px; }
+
+/* SVG overlay lines */
+.ux-flow-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    stroke: #10B981;
+    stroke-width: 1.5;
+    fill: none;
+    stroke-dasharray: 6 4;
+    animation: flowPulse 3s linear infinite;
+}
+
+@keyframes flowPulse {
+    0% { stroke-dashoffset: 20; }
+    100% { stroke-dashoffset: 0; }
+}
+
+/* Floating UX Guideline Labels */
+.ux-label-card {
+    position: absolute;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    border-radius: 6px;
+    padding: 0.35rem 0.6rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    color: #F5F7FA;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.ux-label-card.pos-1 {
+    left: 20px;
+    top: 50px;
+}
+
+.ux-label-card.pos-2 {
+    left: 120px;
+    top: 155px;
+}
+
+.ux-label-card.pos-3 {
+    left: 100px;
+    top: 265px;
+}
+
+.ux-tag {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    font-size: 8px;
+    font-weight: 700;
+    color: #10B981;
+    letter-spacing: 0.05em;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+/* Footer Channels */
+.contact-social-footer {
+    margin-top: 4rem;
+    border-top: 1px solid rgba(120, 91, 216, 0.12);
+    padding-top: 2rem;
+}
+
+.social-footer-title {
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    color: var(--brandSecondary);
+    display: block;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.social-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.social-card {
+    display: block;
+    border-radius: 14px;
+    border: 1px solid rgba(120, 91, 216, 0.1);
+    background: rgba(18, 18, 26, 0.35);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.social-card:hover {
+    border-color: rgba(120, 91, 216, 0.4);
+    background: rgba(18, 18, 26, 0.55);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(120, 91, 216, 0.08);
+}
+
+.social-card-inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.35rem;
+}
+
+.social-icon-box {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    background: rgba(120, 91, 216, 0.08);
+    border: 1px solid rgba(120, 91, 216, 0.12);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--brandSecondary);
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.social-card:hover .social-icon-box {
+    background: rgba(120, 91, 216, 0.18);
+    color: var(--titleMain);
+    border-color: rgba(120, 91, 216, 0.3);
+}
+
+.social-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    flex-grow: 1;
+    min-w: 0;
+}
+
+.social-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--titleMain);
+}
+
+.social-handle {
+    font-size: 11.5px;
+    color: var(--brandTertiary);
+    opacity: 0.75;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.social-arrow {
+    width: 15px;
+    height: 15px;
+    color: var(--brandTertiary);
+    opacity: 0.35;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.social-card:hover .social-arrow {
+    transform: translate(2px, -2px);
+    color: var(--brandSecondary);
+    opacity: 0.95;
+}
+
+/* RESPONSIVE LAYOUT UPGRADES */
+@media (min-width: 768px) {
+    .contact-layout-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+    }
+    .social-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .contact-layout-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+        gap: 4rem;
+    }
+}
+
+
+
+

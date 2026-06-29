@@ -2,6 +2,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+
+    // STABLE VIEWPORT HEIGHT — stops the mobile "scroll jumps back up" bug.
+    // On phones the address bar hides/shows while scrolling, which changes 100vh
+    // and resizes every full-height section, yanking the page. We freeze the
+    // height in --vh-stable and only refresh it on a real WIDTH change (rotation
+    // / resize), ignoring the height-only changes the address bar produces.
+    const docEl = document.documentElement;
+    let lastVHWidth = window.innerWidth;
+    const setStableVH = () => docEl.style.setProperty('--vh-stable', window.innerHeight + 'px');
+    setStableVH();
+    window.addEventListener('resize', () => {
+        if (window.innerWidth !== lastVHWidth) {   // ignore pure address-bar height shifts
+            lastVHWidth = window.innerWidth;
+            setStableVH();
+        }
+    }, { passive: true });
+    window.addEventListener('orientationchange', () => {
+        // After an orientation flip the new innerHeight settles a frame later.
+        requestAnimationFrame(() => requestAnimationFrame(setStableVH));
+    });
+
     // 0. PRELOADER — INTERACTIVE NAME REVEAL
     const preloader = document.getElementById('preloader');
     if (preloader) {
@@ -70,27 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     revealElements.forEach(el => revealObserver.observe(el));
 
 
-    // 1b. SCROLL-DRIVEN HERO BEAM LIGHT FIELD
-    // Maps scroll position through the hero (0 -> 1) onto a CSS variable so the
-    // light beams drift upward and fade as the section leaves the viewport.
-    const heroSection = document.getElementById('hero');
-    const beamField = document.querySelector('.hero-beam-field');
-    if (heroSection && beamField) {
-        let scrollTicking = false;
-        const updateBeamProgress = () => {
-            const heroHeight = heroSection.offsetHeight || window.innerHeight;
-            const progress = Math.min(Math.max(window.scrollY / heroHeight, 0), 1);
-            beamField.style.setProperty('--scroll', progress.toFixed(3));
-            scrollTicking = false;
-        };
-        window.addEventListener('scroll', () => {
-            if (!scrollTicking) {
-                window.requestAnimationFrame(updateBeamProgress);
-                scrollTicking = true;
-            }
-        }, { passive: true });
-        updateBeamProgress();
-    }
 
 
     // 1c. INTERACTIVE PARTICLE NETWORK (cursor-reactive constellation)
@@ -343,8 +343,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // 5. GLIDE INTERACTIVE CAROUSEL (cycles the exploration bullet points)
     const track = document.getElementById('carousel-track');
     const nextCarouselBtn = document.getElementById('next-carousel-btn');
+    const prevCarouselBtn = document.getElementById('prev-carousel-btn');
     const dots = document.querySelectorAll('.indicator-dot');
-    if (track && nextCarouselBtn) {
+    if (track && (nextCarouselBtn || prevCarouselBtn)) {
         const slideCount = track.children.length;   // dynamic — adapts to slide count
         let activeSlideIndex = 0;
 
@@ -353,16 +354,21 @@ document.addEventListener("DOMContentLoaded", () => {
             track.style.transform = `translate3d(-${activeSlideIndex * 100}%, 0, 0)`;
             dots.forEach((dot, i) => {
                 if (i === activeSlideIndex) {
-                    dot.classList.remove('bg-brandTertiary/20');
+                    dot.classList.remove('bg-brandTertiary/20', 'w-1.5');
                     dot.classList.add('bg-brandPrimary', 'w-3');
                 } else {
                     dot.classList.remove('bg-brandPrimary', 'w-3');
-                    dot.classList.add('bg-brandTertiary/20');
+                    dot.classList.add('bg-brandTertiary/20', 'w-1.5');
                 }
             });
         };
 
-        nextCarouselBtn.addEventListener('click', () => goToSlide(activeSlideIndex + 1));
+        if (nextCarouselBtn) {
+            nextCarouselBtn.addEventListener('click', () => goToSlide(activeSlideIndex + 1));
+        }
+        if (prevCarouselBtn) {
+            prevCarouselBtn.addEventListener('click', () => goToSlide(activeSlideIndex - 1));
+        }
         // Allow jumping directly via the dot indicators
         dots.forEach((dot, i) => {
             dot.style.cursor = 'pointer';
@@ -384,4 +390,170 @@ document.addEventListener("DOMContentLoaded", () => {
         }, { threshold: 0.3 });
         animatedLists.forEach(list => listObserver.observe(list));
     }
+
+    // 7. INTERACTIVE FRAMEWORK SPLIT / ORBITAL DIAL LAYOUT
+    const frameworkSteps = [
+        {
+            number: "01",
+            title: "Discover",
+            desc: "Researching users, behaviors, and opportunities to uncover core needs, pains, and market potentials.",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>`,
+            tags: ["User Interviews", "Competitive Audit", "Field Studies", "Market Analysis"]
+        },
+        {
+            number: "02",
+            title: "Define",
+            desc: "Synthesizing findings to identify key insights and define the core problem statements, user journey maps, and requirements.",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>`,
+            tags: ["Problem Framing", "Persona Creation", "Journey Maps", "Information Architecture"]
+        },
+        {
+            number: "03",
+            title: "Design",
+            desc: "Creating user flows, detailed wireframes, high-fidelity user interfaces, and robust, scalable design systems.",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>`,
+            tags: ["User Flows", "UI Design System", "Interactive Prototypes", "Micro-Interactions"]
+        },
+        {
+            number: "04",
+            title: "Validate",
+            desc: "Testing assumptions, running usability sessions, compiling feedback, and performing heuristic analysis to refine the product.",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`,
+            tags: ["Usability Testing", "Feedback Loops", "A/B Experiments", "Heuristic Analysis"]
+        },
+        {
+            number: "05",
+            title: "Refine",
+            desc: "Preparing design handoffs, tracking product usage post-launch, and performing conversion rate optimizations for long-term value.",
+            icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>`,
+            tags: ["Design Handoff", "Analytics Auditing", "CRO Iterations", "Feature Optimization"]
+        }
+    ];
+
+    // Mobile Elements
+    const detailCard = document.getElementById('framework-detail-card');
+    const mobileTriggers = document.querySelectorAll('.fw-step-trigger');
+    const numEl = document.getElementById('fw-detail-number');
+    const iconEl = document.getElementById('fw-detail-icon');
+    const titleEl = document.getElementById('fw-detail-title');
+    const descEl = document.getElementById('fw-detail-desc');
+    const tagsEl = document.getElementById('fw-detail-tags');
+
+    // Desktop Elements
+    const hubCard = document.getElementById('framework-hub');
+    const orbitalNodes = document.querySelectorAll('.fw-orbital-node');
+    const hubNumEl = document.getElementById('fw-hub-number');
+    const hubTitleEl = document.getElementById('fw-hub-title');
+    const hubDescEl = document.getElementById('fw-hub-desc');
+    const hubTagEl = document.getElementById('fw-hub-tag');
+    const glowPath = document.getElementById('orbital-glow-path');
+
+    // Unified Update Function
+    const updateFrameworkStep = (index) => {
+        const step = frameworkSteps[index];
+        if (!step) return;
+
+        // 1. Update Mobile Layout
+        if (detailCard && mobileTriggers.length) {
+            mobileTriggers.forEach(t => t.classList.remove('active-step'));
+            if (mobileTriggers[index]) {
+                mobileTriggers[index].classList.add('active-step');
+            }
+
+            detailCard.style.opacity = '0.3';
+            detailCard.style.transform = 'translateY(10px) scale(0.99)';
+
+            setTimeout(() => {
+                if (numEl) numEl.textContent = step.number;
+                if (iconEl) iconEl.innerHTML = step.icon;
+                if (titleEl) titleEl.textContent = step.title;
+                if (descEl) descEl.textContent = step.desc;
+                if (tagsEl) {
+                    tagsEl.innerHTML = step.tags
+                        .map(tag => `<span class="px-3.5 py-1.5 bg-[#12121A] border border-brandTertiary/10 rounded-full text-titleSecond font-sans text-xs tracking-wide">${tag}</span>`)
+                        .join('');
+                }
+                detailCard.style.opacity = '1';
+                detailCard.style.transform = 'translateY(0) scale(1)';
+            }, 180);
+        }
+
+        // 2. Update Desktop Layout
+        if (hubCard && orbitalNodes.length) {
+            orbitalNodes.forEach(node => node.classList.remove('active-node'));
+            if (orbitalNodes[index]) {
+                orbitalNodes[index].classList.add('active-node');
+            }
+
+            // Animate SVG path dashoffset (circumference = 1256.6)
+            if (glowPath) {
+                // progressive connection clockwise: index 0 -> 100%, 1 -> 80%, 2 -> 60%, 3 -> 40%, 4 -> 20%
+                const fraction = 1 - (index * 0.2);
+                const offset = 1256.6 * fraction;
+                glowPath.style.strokeDashoffset = offset.toFixed(1);
+            }
+
+            hubCard.style.opacity = '0.3';
+            hubCard.style.transform = 'translate(-50%, -50%) scale(0.96)';
+
+            setTimeout(() => {
+                if (hubNumEl) hubNumEl.textContent = step.number;
+                if (hubTitleEl) hubTitleEl.textContent = step.title;
+                if (hubDescEl) hubDescEl.textContent = step.desc;
+                if (hubTagEl) hubTagEl.textContent = step.tags[0]; // first focus area tag
+
+                hubCard.style.opacity = '1';
+                hubCard.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 180);
+        }
+    };
+
+    // Attach listeners to Mobile Triggers
+    if (mobileTriggers.length) {
+        mobileTriggers.forEach((trigger, idx) => {
+            trigger.addEventListener('mouseenter', () => updateFrameworkStep(idx));
+            trigger.addEventListener('click', () => updateFrameworkStep(idx));
+        });
+    }
+
+    // Attach listeners to Desktop Orbital Nodes
+    if (orbitalNodes.length) {
+        orbitalNodes.forEach((node, idx) => {
+            node.addEventListener('mouseenter', () => updateFrameworkStep(idx));
+            node.addEventListener('click', () => updateFrameworkStep(idx));
+        });
+    }
+
+    // --- 9. INTERACTIVE 3D UI/UX MODEL TILT CONTROLLER ---
+    const contactModelPanel = document.querySelector('.contact-model-panel');
+    const designStack = document.getElementById('interactive-design-stack');
+
+    if (contactModelPanel && designStack) {
+        // Base Isometric Angle config (must match style.css)
+        const baseRotateX = 54; 
+        const baseRotateY = 0;
+        const baseRotateZ = -45;
+
+        // Smoothly tilt stack on mouse move
+        contactModelPanel.addEventListener('mousemove', (e) => {
+            const rect = contactModelPanel.getBoundingClientRect();
+            
+            // Get mouse position relative to center of panel (-0.5 to 0.5)
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            
+            // Calculate dynamic rotation angles (max tilt +/- 18 degrees)
+            const tiltX = baseRotateX - (y * 36); 
+            const tiltY = baseRotateY + (x * 36); 
+            
+            // Apply 3D transform transition inline
+            designStack.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) rotateZ(${baseRotateZ}deg)`;
+        });
+
+        // Reset to base isometric view on mouse leave
+        contactModelPanel.addEventListener('mouseleave', () => {
+            designStack.style.transform = `rotateX(${baseRotateX}deg) rotateY(${baseRotateY}deg) rotateZ(${baseRotateZ}deg)`;
+        });
+    }
 });
+

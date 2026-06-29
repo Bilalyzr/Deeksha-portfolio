@@ -34,8 +34,6 @@
     <!-- Interactive Particle Network (cursor-reactive constellation) -->
     <canvas id="particle-network" aria-hidden="true"></canvas>
     <div class="ambient-glow"></div>
-    <div class="beam-emitter" style="animation-delay: 0s;"></div>
-    <div class="beam-emitter" style="animation-delay: 4.5s; top: 15%;"></div>
 
     <!-- Cursor Aura Glow (follows pointer) -->
     <div id="cursor-aura" aria-hidden="true"></div>
@@ -49,7 +47,6 @@
             <a href="#hero" class="flex items-center gap-2.5 sm:gap-3 font-display font-bold text-titleMain tracking-wide text-base sm:text-lg group min-w-0 md:justify-self-start">
                 <span class="brand-dot shrink-0"></span>
                 <span class="leading-none truncate">
-                    Deeksha Udayasankar <span class="text-[10px] sm:text-xs font-normal text-brandSecondary block group-hover:text-brandPrimary transition-colors mt-0.5">UI/UX Designer</span>
                 </span>
             </a>
 
@@ -96,14 +93,7 @@
     <main class="w-full relative">
 
         <!-- 1. HERO SECTION -->
-        <section id="hero" class="min-h-screen flex flex-col justify-center items-center px-6 relative max-w-5xl mx-auto text-center pt-24 overflow-hidden">
-            <!-- Scroll-Driven Beam Light Field (parallax reacts to scroll progress) -->
-            <div class="hero-beam-field" aria-hidden="true">
-                <span class="hero-beam hero-beam--1"></span>
-                <span class="hero-beam hero-beam--2"></span>
-                <span class="hero-beam hero-beam--3"></span>
-                <span class="hero-beam-core"></span>
-            </div>
+        <section id="hero" class="min-h-screen flex flex-col justify-center items-center px-6 relative max-w-6xl mx-auto text-center pt-24 overflow-hidden">
             <h1 class="font-display font-bold text-4xl md:text-6xl text-titleMain leading-tight mb-8 tracking-tight scroll-reveal relative z-10">
                 <span class="shiny-text">Designing experiences that feel human and think intelligently.</span>
             </h1>
@@ -117,10 +107,7 @@
                 <a href="#philosophy" class="magnet-btn px-8 py-4 bg-transparent text-brandSecondary font-display font-semibold text-sm tracking-wider uppercase rounded-xl border border-brandSecondary/30 hover:bg-brandSecondary/10 transition-all">
                     Explore Philosophy                </a>
             </div>
-            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-30 animate-bounce">
-                <span class="text-[10px] uppercase tracking-widest font-display text-brandTertiary mb-2">[Scroll Indicator]</span>
-                <svg class="w-4 h-4 text-brandTertiary" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </div>
+
         </section>
 
 
@@ -147,7 +134,7 @@
                     <p class="text-textContent font-light text-sm md:text-base leading-relaxed tracking-wide">
                         Experience Intelligence is my approach to design. It is the practice of understanding people deeply, designing intentionally, and leveraging technology thoughtfully to create experiences that are both useful and meaningful. Rather than designing for technology alone, I focus on how technology can enhance human experiences, strengthen connections, and create lasting value.                    </p>
                 </div>
-                
+
                 <!-- Side Secondary Pillar Card (center aligned) -->
                 <div class="glass-panel rounded-2xl p-8 flex flex-col justify-between items-center text-center group hover:border-brandSecondary/40 transition-all duration-300 scroll-reveal" style="transition-delay: 0.1s;">
                     <div class="flex flex-col items-center">
@@ -215,7 +202,7 @@
 
 
         <!-- 4. THE FRAMEWORK -->
-        <section id="framework" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto py-24">
+        <section id="framework" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto py-28">
             <div class="mb-16 scroll-reveal">
                 <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Process</span>
                 <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">The Framework</h2>
@@ -223,37 +210,150 @@
                 <p class="text-textContent font-light text-sm max-w-2xl mt-4 leading-relaxed tracking-wide">Every project follows a structured process designed to uncover meaningful insights and translate them into effective experiences.</p>
             </div>
 
-            <!-- TIMELINE SEQUENCE LAYOUT -->
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
-                <!-- Step 1 -->
-                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group">
-                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">01</div>
-                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Discover</h3>
-                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Researching users, behaviors, and opportunities.</p>
+            <!-- Mobile Layout (Tabbed split grid - displayed on mobile and tablets) -->
+            <div class="block lg:hidden">
+                <div class="grid grid-cols-1 gap-8 relative items-stretch">
+                    <!-- Left Column: Large Detail Display Card -->
+                    <div class="flex flex-col justify-between glass-panel rounded-2xl p-8 shadow-2xl relative overflow-hidden min-h-[380px] group transition-all duration-500 border border-brandPrimary/10 hover:border-brandPrimary/30 scroll-reveal" id="framework-detail-card">
+                        <!-- Subtle background glows inside the card -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-brandPrimary/5 rounded-bl-full pointer-events-none transition-all group-hover:scale-110"></div>
+                        <div class="absolute bottom-0 left-0 w-64 h-64 bg-brandSecondary/5 rounded-tr-full pointer-events-none transition-all group-hover:scale-110"></div>
+
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-6">
+                                <span class="text-4xl font-display font-black text-brandPrimary/25 tracking-tight" id="fw-detail-number">01</span>
+                                <div class="p-3 bg-brandPrimary/10 rounded-xl text-brandPrimary" id="fw-detail-icon">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                </div>
+                            </div>
+                            <h3 class="font-display font-bold text-2xl text-titleMain mb-4" id="fw-detail-title">Discover</h3>
+                            <p class="text-textContent font-light text-sm leading-relaxed tracking-wide mb-6" id="fw-detail-desc">
+                                Researching users, behaviors, and opportunities to uncover core needs, pains, and market potentials.
+                            </p>
+                        </div>
+
+                        <!-- Key Focus Areas tags -->
+                        <div class="relative z-10 pt-6 border-t border-brandTertiary/10">
+                            <span class="text-[10px] uppercase tracking-widest font-display text-brandSecondary font-bold block mb-3">Key Focus Areas</span>
+                            <div class="flex flex-wrap gap-2.5" id="fw-detail-tags">
+                                <span class="px-3.5 py-1.5 bg-[#12121A] border border-brandTertiary/10 rounded-full text-titleSecond font-sans text-xs tracking-wide">User Interviews</span>
+                                <span class="px-3.5 py-1.5 bg-[#12121A] border border-brandTertiary/10 rounded-full text-titleSecond font-sans text-xs tracking-wide">Competitive Audit</span>
+                                <span class="px-3.5 py-1.5 bg-[#12121A] border border-brandTertiary/10 rounded-full text-titleSecond font-sans text-xs tracking-wide">Field Studies</span>
+                                <span class="px-3.5 py-1.5 bg-[#12121A] border border-brandTertiary/10 rounded-full text-titleSecond font-sans text-xs tracking-wide">Market Analysis</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Step Selector buttons -->
+                    <div class="flex flex-col gap-4 scroll-reveal" style="transition-delay: 0.1s;">
+                        <!-- Step 1 Trigger -->
+                        <button class="fw-step-trigger w-full text-left p-5 glass-panel rounded-xl flex items-center gap-4 transition-all duration-300 border border-brandPrimary/10 active-step group" data-step="0">
+                            <span class="font-display font-bold text-lg text-brandSecondary/40 group-hover:text-brandPrimary transition-colors group-[.active-step]:text-brandPrimary">01</span>
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-titleMain group-hover:text-brandSecondary transition-colors group-[.active-step]:text-brandSecondary">Discover</h4>
+                                <p class="text-brandTertiary text-xs font-light mt-0.5 leading-normal truncate max-w-[240px]">Researching users, behaviors, and opportunities.</p>
+                            </div>
+                        </button>
+                        <!-- Step 2 Trigger -->
+                        <button class="fw-step-trigger w-full text-left p-5 glass-panel rounded-xl flex items-center gap-4 transition-all duration-300 border border-brandTertiary/5 hover:border-brandSecondary/30 group" data-step="1">
+                            <span class="font-display font-bold text-lg text-brandTertiary/40 group-hover:text-brandPrimary transition-colors group-[.active-step]:text-brandPrimary">02</span>
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-titleMain group-hover:text-brandSecondary transition-colors group-[.active-step]:text-brandSecondary">Define</h4>
+                                <p class="text-brandTertiary text-xs font-light mt-0.5 leading-normal truncate max-w-[240px]">Synthesizing findings and identifying core problems.</p>
+                            </div>
+                        </button>
+                        <!-- Step 3 Trigger -->
+                        <button class="fw-step-trigger w-full text-left p-5 glass-panel rounded-xl flex items-center gap-4 transition-all duration-300 border border-brandTertiary/5 hover:border-brandSecondary/30 group" data-step="2">
+                            <span class="font-display font-bold text-lg text-brandTertiary/40 group-hover:text-brandPrimary transition-colors group-[.active-step]:text-brandPrimary">03</span>
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-titleMain group-hover:text-brandSecondary transition-colors group-[.active-step]:text-brandSecondary">Design</h4>
+                                <p class="text-brandTertiary text-xs font-light mt-0.5 leading-normal truncate max-w-[240px]">Creating wireframes, UI components, and layouts.</p>
+                            </div>
+                        </button>
+                        <!-- Step 4 Trigger -->
+                        <button class="fw-step-trigger w-full text-left p-5 glass-panel rounded-xl flex items-center gap-4 transition-all duration-300 border border-brandTertiary/5 hover:border-brandSecondary/30 group" data-step="3">
+                            <span class="font-display font-bold text-lg text-brandTertiary/40 group-hover:text-brandPrimary transition-colors group-[.active-step]:text-brandPrimary">04</span>
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-titleMain group-hover:text-brandSecondary transition-colors group-[.active-step]:text-brandSecondary">Validate</h4>
+                                <p class="text-brandTertiary text-xs font-light mt-0.5 leading-normal truncate max-w-[240px]">Testing assumptions and gathering user feedback.</p>
+                            </div>
+                        </button>
+                        <!-- Step 5 Trigger -->
+                        <button class="fw-step-trigger w-full text-left p-5 glass-panel rounded-xl flex items-center gap-4 transition-all duration-300 border border-brandTertiary/5 hover:border-brandSecondary/30 group" data-step="4">
+                            <span class="font-display font-bold text-lg text-brandTertiary/40 group-hover:text-brandPrimary transition-colors group-[.active-step]:text-brandPrimary">05</span>
+                            <div>
+                                <h4 class="font-display font-bold text-sm text-titleMain group-hover:text-brandSecondary transition-colors group-[.active-step]:text-brandSecondary">Refine</h4>
+                                <p class="text-brandTertiary text-xs font-light mt-0.5 leading-normal truncate max-w-[240px]">Optimizing product value and tracking success metrics.</p>
+                            </div>
+                        </button>
+                    </div>
                 </div>
-                <!-- Step 2 -->
-                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group" style="transition-delay: 0.05s;">
-                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">02</div>
-                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Define</h3>
-                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Synthesizing findings and identifying the problems that matter most.</p>
-                </div>
-                <!-- Step 3 -->
-                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group" style="transition-delay: 0.1s;">
-                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">03</div>
-                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Design</h3>
-                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Creating user flows, wireframes, interfaces, and interaction systems.</p>
-                </div>
-                <!-- Step 4 -->
-                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group" style="transition-delay: 0.15s;">
-                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">04</div>
-                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Validate</h3>
-                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Testing assumptions, gathering feedback, and improving experiences.</p>
-                </div>
-                <!-- Step 5 -->
-                <div class="glass-panel rounded-xl p-6 hover:border-brandSecondary/50 transition-all duration-300 scroll-reveal group" style="transition-delay: 0.2s;">
-                    <div class="font-display font-bold text-2xl text-brandPrimary/20 mb-4 group-hover:text-brandPrimary/60 transition-colors">05</div>
-                    <h3 class="font-display font-bold text-base text-titleMain mb-2">Refine</h3>
-                    <p class="text-textContent font-light text-xs leading-relaxed tracking-wide">Optimizing outcomes and delivering measurable value.</p>
+            </div>
+
+            <!-- Desktop Layout (Orbital Dial - displayed on large screens) -->
+            <div class="hidden lg:block relative py-12 scroll-reveal" style="transition-delay: 0.1s;">
+                <div class="relative w-[500px] h-[500px] mx-auto">
+                    
+                    <!-- SVG Orbit Track and Glowing Active Line -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 500 500">
+                        <!-- Outer Orbit Path -->
+                        <circle cx="250" cy="250" r="200" fill="none" stroke="rgba(120, 91, 216, 0.12)" stroke-width="1.5" />
+                        <!-- Glowing active arc, animated with stroke-dasharray and stroke-dashoffset -->
+                        <circle id="orbital-glow-path" cx="250" cy="250" r="200" fill="none" stroke="url(#orbit-gradient)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1256.6" stroke-dashoffset="1256.6" transform="rotate(-90 250 250)" style="transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1);" />
+                        <defs>
+                            <linearGradient id="orbit-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#785BD8" />
+                                <stop offset="100%" stop-color="#7185EA" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    <!-- Central Hub Display Card -->
+                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[310px] h-[310px] rounded-full glass-panel flex flex-col justify-center items-center p-8 text-center shadow-2xl border border-brandPrimary/20 relative group hover:border-brandPrimary/40 transition-all duration-500 overflow-hidden" id="framework-hub">
+                        <!-- Glowing glass accents -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-brandPrimary/5 to-brandSecondary/5 opacity-50 pointer-events-none"></div>
+                        <div class="absolute -top-12 -right-12 w-28 h-28 bg-brandPrimary/10 rounded-full blur-xl pointer-events-none group-hover:scale-125 transition-transform duration-500"></div>
+
+                        <div class="relative z-10 flex flex-col items-center">
+                            <span class="text-4xl font-display font-black text-brandPrimary mb-2" id="fw-hub-number">01</span>
+                            <h3 class="font-display font-bold text-xl text-titleMain mb-3" id="fw-hub-title">Discover</h3>
+                            <p class="text-textContent font-light text-xs leading-relaxed tracking-wide max-w-[230px] mb-4" id="fw-hub-desc">
+                                Researching users, behaviors, and opportunities to uncover core needs, pains, and market potentials.
+                            </p>
+                            
+                            <!-- Key Deliverable Highlight Tag -->
+                            <span class="px-3.5 py-1 bg-[#12121A] border border-brandTertiary/10 rounded-full text-brandSecondary font-sans text-[9px] tracking-widest uppercase font-bold" id="fw-hub-tag">
+                                User Interviews
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Orbital Nodes -->
+                    <!-- Node 1 (Discover) -->
+                    <button class="fw-orbital-node absolute w-14 h-14 rounded-full glass-panel flex items-center justify-center border border-brandPrimary/20 text-titleSecond hover:text-brandPrimary hover:border-brandPrimary/50 transition-all duration-300 shadow-lg cursor-pointer transform -translate-x-1/2 -translate-y-1/2 orbital-node-1 active-node group" data-step="0" title="Discover">
+                        <div class="absolute inset-0 bg-brandPrimary/5 rounded-full scale-0 group-hover:scale-100 group-[.active-node]:scale-100 transition-transform duration-300"></div>
+                        <span class="relative z-10 font-display font-bold text-sm">01</span>
+                    </button>
+                    <!-- Node 2 (Define) -->
+                    <button class="fw-orbital-node absolute w-14 h-14 rounded-full glass-panel flex items-center justify-center border border-brandTertiary/10 text-titleSecond hover:text-brandPrimary hover:border-brandPrimary/50 transition-all duration-300 shadow-lg cursor-pointer transform -translate-x-1/2 -translate-y-1/2 orbital-node-2 group" data-step="1" title="Define">
+                        <div class="absolute inset-0 bg-brandPrimary/5 rounded-full scale-0 group-hover:scale-100 group-[.active-node]:scale-100 transition-transform duration-300"></div>
+                        <span class="relative z-10 font-display font-bold text-sm">02</span>
+                    </button>
+                    <!-- Node 3 (Design) -->
+                    <button class="fw-orbital-node absolute w-14 h-14 rounded-full glass-panel flex items-center justify-center border border-brandTertiary/10 text-titleSecond hover:text-brandPrimary hover:border-brandPrimary/50 transition-all duration-300 shadow-lg cursor-pointer transform -translate-x-1/2 -translate-y-1/2 orbital-node-3 group" data-step="2" title="Design">
+                        <div class="absolute inset-0 bg-brandPrimary/5 rounded-full scale-0 group-hover:scale-100 group-[.active-node]:scale-100 transition-transform duration-300"></div>
+                        <span class="relative z-10 font-display font-bold text-sm">03</span>
+                    </button>
+                    <!-- Node 4 (Validate) -->
+                    <button class="fw-orbital-node absolute w-14 h-14 rounded-full glass-panel flex items-center justify-center border border-brandTertiary/10 text-titleSecond hover:text-brandPrimary hover:border-brandPrimary/50 transition-all duration-300 shadow-lg cursor-pointer transform -translate-x-1/2 -translate-y-1/2 orbital-node-4 group" data-step="3" title="Validate">
+                        <div class="absolute inset-0 bg-brandPrimary/5 rounded-full scale-0 group-hover:scale-100 group-[.active-node]:scale-100 transition-transform duration-300"></div>
+                        <span class="relative z-10 font-display font-bold text-sm">04</span>
+                    </button>
+                    <!-- Node 5 (Refine) -->
+                    <button class="fw-orbital-node absolute w-14 h-14 rounded-full glass-panel flex items-center justify-center border border-brandTertiary/10 text-titleSecond hover:text-brandPrimary hover:border-brandPrimary/50 transition-all duration-300 shadow-lg cursor-pointer transform -translate-x-1/2 -translate-y-1/2 orbital-node-5 group" data-step="4" title="Refine">
+                        <div class="absolute inset-0 bg-brandPrimary/5 rounded-full scale-0 group-hover:scale-100 group-[.active-node]:scale-100 transition-transform duration-300"></div>
+                        <span class="relative z-10 font-display font-bold text-sm">05</span>
+                    </button>
                 </div>
             </div>
             
@@ -263,7 +363,7 @@
 
 
         <!-- 5. EXPERIENCE DESIGN (PROJECTS) -->
-        <section id="projects" class="max-w-5xl mx-auto px-6 py-28 min-h-screen">
+        <section id="projects" class="max-w-6xl mx-auto px-6 py-28 min-h-screen flex flex-col justify-center">
             <div class="mb-16 scroll-reveal">
                 <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Case Studies</span>
                 <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">Experience Design</h2>
@@ -357,7 +457,7 @@
 
 
         <!-- 7. BEYOND INTERFACES -->
-        <section id="future" class="min-h-screen flex flex-col justify-center px-6 max-w-5xl mx-auto py-28">
+        <section id="future" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto py-28">
             <div class="mb-14 scroll-reveal">
                 <span class="text-xs uppercase tracking-widest font-display text-brandSecondary font-bold block mb-2">Speculative Space</span>
                 <h2 class="font-display font-bold text-3xl md:text-5xl text-titleMain tracking-tight">Beyond Interfaces</h2>
@@ -367,45 +467,133 @@
             </div>
 
             <!-- ULTRA GLIDE INTERACTIVE CAROUSEL (cycles the exploration bullet points) -->
-            <div class="relative w-full overflow-hidden glass-panel rounded-2xl p-8 shadow-xl">
-                <div id="carousel-track" class="flex transition-transform duration-700 ease-out" style="transform: translateX(0%);">
+            <div class="relative w-full overflow-hidden glass-panel rounded-2xl py-8 md:py-10 shadow-xl group/carousel">
+                <!-- Tech grid backdrop overlay -->
+                <div class="absolute inset-0 bg-[radial-gradient(rgba(120,91,216,0.06)_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-60 pointer-events-none"></div>
+                <div class="absolute -top-40 -right-40 w-96 h-96 bg-brandPrimary/5 rounded-full blur-[80px] pointer-events-none group-hover/carousel:bg-brandPrimary/8 transition-all duration-1000"></div>
+                <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-brandSecondary/5 rounded-full blur-[80px] pointer-events-none group-hover/carousel:bg-brandSecondary/8 transition-all duration-1000"></div>
+
+                <div id="carousel-track" class="w-full flex transition-transform duration-700 ease-out relative z-10" style="transform: translateX(0%);">
+                    
                     <!-- Slide 1 -->
-                    <div class="min-w-full pr-6 flex-shrink-0 min-h-[120px] flex flex-col justify-center">
-                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 01</div>
-                        <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight">Human-AI Interaction</h3>
+                    <div class="w-full px-8 md:px-10 flex-shrink-0 flex flex-col md:flex-row gap-8 items-center justify-between">
+                        <div class="flex-1 text-left">
+                            <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 01</div>
+                            <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight mb-4">Human-AI Interaction</h3>
+                            <p class="text-textContent font-light text-sm leading-relaxed tracking-wide mb-6">
+                                Designing systems where humans and artificial intelligence collaborate seamlessly, prioritizing user trust, transparency, control, and co-creation models.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Shared Agency</span>
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Explainable AI</span>
+                            </div>
+                        </div>
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl relative flex items-center justify-center shrink-0 group/icon border border-brandPrimary/10 bg-brandPrimary/5 transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brandPrimary/20 to-brandSecondary/20 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 rounded-2xl blur-md"></div>
+                            <div class="relative z-10 w-[94%] h-[94%] flex items-center justify-center bg-[#07070A]/95 rounded-[14px]">
+                                <svg class="w-10 h-10 text-brandPrimary opacity-40 group-hover/icon:opacity-85 transition-opacity duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94-3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"></path></svg>
+                            </div>
+                        </div>
                     </div>
+
                     <!-- Slide 2 -->
-                    <div class="min-w-full pr-6 flex-shrink-0 min-h-[120px] flex flex-col justify-center">
-                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 02</div>
-                        <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight">Conversational Experiences</h3>
+                    <div class="w-full px-8 md:px-10 flex-shrink-0 flex flex-col md:flex-row gap-8 items-center justify-between">
+                        <div class="flex-1 text-left">
+                            <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 02</div>
+                            <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight mb-4">Conversational Experiences</h3>
+                            <p class="text-textContent font-light text-sm leading-relaxed tracking-wide mb-6">
+                                Crafting natural language interfaces and agentic dialog structures that understand contextual nuance, dynamic memory, and user intent.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Natural Dialog</span>
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Contextual Memory</span>
+                            </div>
+                        </div>
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl relative flex items-center justify-center shrink-0 group/icon border border-brandPrimary/10 bg-brandPrimary/5 transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brandPrimary/20 to-brandSecondary/20 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 rounded-2xl blur-md"></div>
+                            <div class="relative z-10 w-[94%] h-[94%] flex items-center justify-center bg-[#07070A]/95 rounded-[14px]">
+                                <svg class="w-10 h-10 text-brandPrimary opacity-40 group-hover/icon:opacity-85 transition-opacity duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 01.778-.332 48.294 48.294 0 005.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"></path></svg>
+                            </div>
+                        </div>
                     </div>
+
                     <!-- Slide 3 -->
-                    <div class="min-w-full pr-6 flex-shrink-0 min-h-[120px] flex flex-col justify-center">
-                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 03</div>
-                        <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight">Intelligent Workflows</h3>
+                    <div class="w-full px-8 md:px-10 flex-shrink-0 flex flex-col md:flex-row gap-8 items-center justify-between">
+                        <div class="flex-1 text-left">
+                            <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 03</div>
+                            <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight mb-4">Intelligent Workflows</h3>
+                            <p class="text-textContent font-light text-sm leading-relaxed tracking-wide mb-6">
+                                Streamlining complex tools and automation spaces by orchestrating smart defaults, prediction engines, and multi-agent coordination systems.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Smart Defaults</span>
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Multi-Agent Orchestration</span>
+                            </div>
+                        </div>
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl relative flex items-center justify-center shrink-0 group/icon border border-brandPrimary/10 bg-brandPrimary/5 transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brandPrimary/20 to-brandSecondary/20 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 rounded-2xl blur-md"></div>
+                            <div class="relative z-10 w-[94%] h-[94%] flex items-center justify-center bg-[#07070A]/95 rounded-[14px]">
+                                <svg class="w-10 h-10 text-brandPrimary opacity-40 group-hover/icon:opacity-85 transition-opacity duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"></path></svg>
+                            </div>
+                        </div>
                     </div>
+
                     <!-- Slide 4 -->
-                    <div class="min-w-full pr-6 flex-shrink-0 min-h-[120px] flex flex-col justify-center">
-                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 04</div>
-                        <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight">Adaptive Interfaces</h3>
+                    <div class="w-full px-8 md:px-10 flex-shrink-0 flex flex-col md:flex-row gap-8 items-center justify-between">
+                        <div class="flex-1 text-left">
+                            <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 04</div>
+                            <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight mb-4">Adaptive Interfaces</h3>
+                            <p class="text-textContent font-light text-sm leading-relaxed tracking-wide mb-6">
+                                Designing screen spaces that morph, adjust, and contextually adapt in real-time based on live user state, data triggers, and environmental needs.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Contextual UI</span>
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Responsive States</span>
+                            </div>
+                        </div>
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl relative flex items-center justify-center shrink-0 group/icon border border-brandPrimary/10 bg-brandPrimary/5 transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brandPrimary/20 to-brandSecondary/20 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 rounded-2xl blur-md"></div>
+                            <div class="relative z-10 w-[94%] h-[94%] flex items-center justify-center bg-[#07070A]/95 rounded-[14px]">
+                                <svg class="w-10 h-10 text-brandPrimary opacity-40 group-hover/icon:opacity-85 transition-opacity duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25"></path></svg>
+                            </div>
+                        </div>
                     </div>
+
                     <!-- Slide 5 -->
-                    <div class="min-w-full pr-6 flex-shrink-0 min-h-[120px] flex flex-col justify-center">
-                        <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 05</div>
-                        <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight">Future Product Concepts</h3>
+                    <div class="w-full px-8 md:px-10 flex-shrink-0 flex flex-col md:flex-row gap-8 items-center justify-between">
+                        <div class="flex-1 text-left">
+                            <div class="text-brandPrimary font-display font-bold text-[10px] uppercase tracking-widest mb-3">// Exploration Area 05</div>
+                            <h3 class="text-titleMain font-display text-2xl md:text-3xl font-bold tracking-tight mb-4">Future Product Concepts</h3>
+                            <p class="text-textContent font-light text-sm leading-relaxed tracking-wide mb-6">
+                                Speculative design projects analyzing the integration of spatial computing, multi-modal gesture spaces, and ambient digital environments.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Spatial Computing</span>
+                                <span class="text-[9px] uppercase font-display font-semibold tracking-wider px-3 py-1 bg-brandPrimary/10 border border-brandPrimary/20 rounded-full text-brandSecondary">Ambient UI</span>
+                            </div>
+                        </div>
+                        <div class="w-24 h-24 md:w-32 md:h-32 rounded-2xl relative flex items-center justify-center shrink-0 group/icon border border-brandPrimary/10 bg-brandPrimary/5 transition-all duration-300">
+                            <div class="absolute inset-0 bg-gradient-to-tr from-brandPrimary/20 to-brandSecondary/20 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-300 rounded-2xl blur-md"></div>
+                            <div class="relative z-10 w-[94%] h-[94%] flex items-center justify-center bg-[#07070A]/95 rounded-[14px]">
+                                <svg class="w-10 h-10 text-brandPrimary opacity-40 group-hover/icon:opacity-85 transition-opacity duration-300" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21L14.907 18m4.917-11.891L20.26 3.74a.5.5 0 00-.732-.449l-2.67 1.335m2.966 4.743l-4.743-2.965m0 0L9.82 12.197m4.917-4.917L10.74 3.26a.5.5 0 00-.733-.45L7.337 4.145m9.226 9.227L12.197 9.82m0 0L7.382 14.636m4.815-4.816L3.26 10.739a.5.5 0 00-.45.733l1.335 2.67m1.503-4.329l2.965 4.743m3.743-3.743L3.74 20.26a.5.5 0 00-.449.732l1.335 2.67"></path></svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Controls & Dot Architecture -->
-                <div class="flex justify-between items-center mt-10 pt-4 border-t border-brandTertiary/5">
+                <div class="flex justify-between items-center mt-10 pt-4 border-t border-brandTertiary/5 px-8 md:px-10 relative z-10">
                     <div class="flex space-x-2.5" id="carousel-dots">
-                        <span class="w-1.5 h-1.5 rounded-full bg-brandPrimary transition-all duration-300 indicator-dot"></span>
+                        <span class="w-3 h-1.5 rounded-full bg-brandPrimary transition-all duration-300 indicator-dot"></span>
                         <span class="w-1.5 h-1.5 rounded-full bg-brandTertiary/20 transition-all duration-300 indicator-dot"></span>
                         <span class="w-1.5 h-1.5 rounded-full bg-brandTertiary/20 transition-all duration-300 indicator-dot"></span>
                         <span class="w-1.5 h-1.5 rounded-full bg-brandTertiary/20 transition-all duration-300 indicator-dot"></span>
                         <span class="w-1.5 h-1.5 rounded-full bg-brandTertiary/20 transition-all duration-300 indicator-dot"></span>
                     </div>
-                    <button id="next-carousel-btn" class="text-[10px] uppercase font-display font-bold tracking-widest text-brandSecondary hover:text-brandPrimary transition-colors">Next Area &rarr;</button>
+                    <div class="flex gap-4">
+                        <button id="prev-carousel-btn" class="text-[10px] uppercase font-display font-bold tracking-widest text-brandTertiary hover:text-brandPrimary transition-colors">&larr; Prev</button>
+                        <button id="next-carousel-btn" class="text-[10px] uppercase font-display font-bold tracking-widest text-brandSecondary hover:text-brandPrimary transition-colors">Next &rarr;</button>
+                    </div>
                 </div>
             </div>
 
@@ -416,7 +604,7 @@
 
 
         <!-- 8. PERSPECTIVE (ABOUT) -->
-        <section id="about" class="min-h-screen flex flex-col justify-center px-6 max-w-4xl mx-auto py-28">
+        <section id="about" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto py-28">
             <div class="glass-panel rounded-2xl p-10 shadow-2xl relative overflow-hidden group">
                 <div class="absolute top-0 right-0 w-32 h-32 bg-brandPrimary/5 rounded-bl-full pointer-events-none transition-all group-hover:scale-110"></div>
                 <span class="text-xs uppercase tracking-widest font-display text-brandPrimary font-bold block mb-2">Identity</span>
@@ -436,58 +624,233 @@
 
 
         <!-- 9. CONTACT -->
-        <section id="contact" class="min-h-screen flex flex-col justify-between px-6 max-w-5xl mx-auto pt-28 pb-12">
-            <div class="my-auto text-center max-w-3xl mx-auto">
-                <h2 class="font-display font-bold text-4xl md:text-6xl text-titleMain mb-4 tracking-tight scroll-reveal">Contact</h2>
-                <p class="font-display text-xl md:text-2xl text-brandSecondary mb-6 font-medium scroll-reveal" style="transition-delay: 0.1s;">Let's create meaningful experiences together.</p>
-                <p class="text-textContent font-light text-sm md:text-base mb-8 leading-relaxed tracking-wide scroll-reveal" style="transition-delay: 0.2s;">
-                    Whether you're building a product, exploring new opportunities, or reimagining an existing experience, I'd love to connect.
-                </p>
+        <section id="contact" class="min-h-screen flex flex-col justify-center px-6 max-w-6xl mx-auto pt-28 pb-20">
+            <div class="scroll-reveal w-full">
+                <!-- Outer Layout Container -->
+                <div class="contact-layout-grid">
+                    
+                    <!-- Left Side: Interactive Status & Social Grid -->
+                    <div class="contact-info-panel">
+                        <div class="contact-header-wrapper">
+                            <span class="contact-badge">GET IN TOUCH</span>
+                            <h2 class="contact-title shiny-text">Let's create something intelligent.</h2>
+                            <p class="contact-subtitle">
+                                Whether you're building a product, exploring new opportunities, or reimagining an existing experience, I'd love to connect.
+                            </p>
+                        </div>
+                        
+                        <!-- Availability status -->
+                        <div class="contact-status-card">
+                            <div class="status-beacon">
+                                <span class="beacon-dot"></span>
+                                <span class="beacon-pulse"></span>
+                            </div>
+                            <div class="status-text">
+                                <span class="status-label">CURRENT AVAILABILITY</span>
+                                <span class="status-val">Open for select projects & roles • Q3 2026</span>
+                            </div>
+                        </div>
 
-                <!-- ANIMATED LIST: OPEN OPPORTUNITIES -->
-                <p class="text-brandSecondary font-display text-xs uppercase tracking-widest font-bold mb-5 scroll-reveal" style="transition-delay: 0.25s;">I'm currently open to opportunities in</p>
-                <ul class="animated-list flex flex-wrap justify-center gap-3 mb-8 max-w-2xl mx-auto">
-                    <li class="animated-list-item px-5 py-2.5 glass-panel rounded-full text-titleSecond font-display text-xs md:text-sm font-medium tracking-wide">UI/UX Design</li>
-                    <li class="animated-list-item px-5 py-2.5 glass-panel rounded-full text-titleSecond font-display text-xs md:text-sm font-medium tracking-wide">Product Design</li>
-                    <li class="animated-list-item px-5 py-2.5 glass-panel rounded-full text-titleSecond font-display text-xs md:text-sm font-medium tracking-wide">Experience Design</li>
-                    <li class="animated-list-item px-5 py-2.5 glass-panel rounded-full text-titleSecond font-display text-xs md:text-sm font-medium tracking-wide">AI-Enhanced Experiences</li>
-                </ul>
-                <p class="text-brandTertiary/80 font-light text-xs md:text-sm mb-12 max-w-xl mx-auto leading-relaxed scroll-reveal" style="transition-delay: 0.3s;">
-                    Let's start a conversation and explore what we can create together.
-                </p>
+                        <!-- Location & Timezone -->
+                        <div class="contact-location-card">
+                            <svg class="location-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <div class="location-text">
+                                <span class="status-label">LOCATION & TIMEZONE</span>
+                                <span class="status-val">Bengaluru, India (GMT +5:30) • Remote/Hybrid</span>
+                            </div>
+                        </div>
 
-                <!-- CONTACT BUTTON MATRIX -->
-                <div class="flex flex-wrap justify-center gap-6 items-center scroll-reveal" style="transition-delay: 0.3s;">
-                    <a href="mailto:deeksha@example.com" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
-                        Email                    </a>
-                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
-                        Linkedin                    </a>
-                    <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="magnet-btn px-8 py-3.5 bg-[#12121A] border border-brandTertiary/10 rounded-xl text-titleMain font-display text-xs uppercase tracking-widest font-bold hover:border-brandPrimary/60 transition-all shadow-md">
-                        Behance                    </a>
+                        <!-- Open to Opportunities List (re-styled tags) -->
+                        <div class="contact-tags-wrapper">
+                            <span class="tags-title">AREAS OF FOCUS</span>
+                            <div class="contact-tags-grid">
+                                <span class="contact-tag-item">UI/UX Design</span>
+                                <span class="contact-tag-item">Product Design</span>
+                                <span class="contact-tag-item">Experience Design</span>
+                                <span class="contact-tag-item">AI-Aware Interfaces</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side: Interactive 3D UI/UX Model -->
+                    <div class="contact-model-panel">
+                        <div class="viewport-3d">
+                            <div class="design-stack" id="interactive-design-stack">
+                                
+                                <!-- Layer 1: Wireframe Blueprint (Bottom) -->
+                                <div class="layer-card layer-wireframe">
+                                    <div class="layer-wireframe-bg"></div>
+                                    <div class="wireframe-content">
+                                        <div class="wf-header"></div>
+                                        <div class="wf-hero">
+                                            <div class="wf-hero-label">BLUEPRINT / GRID</div>
+                                        </div>
+                                        <div class="wf-grid">
+                                            <div class="wf-card">
+                                                <div class="wf-card-circle"></div>
+                                                <div class="wf-card-line"></div>
+                                                <div class="wf-card-line wf-card-line-short"></div>
+                                            </div>
+                                            <div class="wf-card">
+                                                <div class="wf-card-circle"></div>
+                                                <div class="wf-card-line"></div>
+                                                <div class="wf-card-line wf-card-line-short"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="wf-tag">01 | WIREFRAME</span>
+                                </div>
+
+                                <!-- Layer 2: Visual UI Mockup (Middle) -->
+                                <div class="layer-card layer-ui">
+                                    <div class="ui-content">
+                                        <div class="ui-header">
+                                            <div class="ui-logo">
+                                                <span class="ui-logo-dot"></span>
+                                                <span class="ui-logo-text">System.ui</span>
+                                            </div>
+                                            <div class="ui-nav-dots">
+                                                <span class="ui-nav-dot"></span>
+                                                <span class="ui-nav-dot active"></span>
+                                                <span class="ui-nav-dot"></span>
+                                            </div>
+                                        </div>
+                                        <div class="ui-hero-card">
+                                            <span class="ui-hero-label">PRODUCT ANALYSIS</span>
+                                            <span class="ui-hero-title">Experience Metrics</span>
+                                            <p class="ui-hero-desc">Transforming complex parameters into clean, interactive vectors.</p>
+                                        </div>
+                                        <div class="ui-grid">
+                                            <div class="ui-card">
+                                                <div class="ui-card-top">
+                                                    <span class="ui-card-avatar"></span>
+                                                    <div class="ui-card-meta">
+                                                        <span class="ui-card-title">User A</span>
+                                                        <span class="ui-card-subtitle">Active Now</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ui-card-chart">
+                                                    <span class="ui-chart-bar val-1"></span>
+                                                    <span class="ui-chart-bar val-2"></span>
+                                                    <span class="ui-chart-bar val-3"></span>
+                                                    <span class="ui-chart-bar val-4"></span>
+                                                </div>
+                                            </div>
+                                            <div class="ui-card">
+                                                <div class="ui-card-top">
+                                                    <span class="ui-card-avatar" style="background: linear-gradient(135deg, #10B981, #7185EA);"></span>
+                                                    <div class="ui-card-meta">
+                                                        <span class="ui-card-title">User B</span>
+                                                        <span class="ui-card-subtitle">Active Now</span>
+                                                    </div>
+                                                </div>
+                                                <div class="ui-card-chart">
+                                                    <span class="ui-chart-bar val-4"></span>
+                                                    <span class="ui-chart-bar val-3"></span>
+                                                    <span class="ui-chart-bar val-2"></span>
+                                                    <span class="ui-chart-bar val-1"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="ui-tag">02 | VISUAL CRAFT</span>
+                                </div>
+
+                                <!-- Layer 3: Interaction & Flow Logic (Top) -->
+                                <div class="layer-card layer-ux">
+                                    <div class="ux-content">
+                                        <span class="ux-badge">USER BEHAVIOR PATH</span>
+                                        
+                                        <!-- Connective Path SVG -->
+                                        <div class="ux-nodes-container">
+                                            <svg class="ux-flow-svg" viewBox="0 0 242 332">
+                                                <path d="M 40 100 C 80 60, 160 140, 200 100 C 170 170, 100 190, 70 240" />
+                                                <path d="M 200 100 L 170 240" />
+                                            </svg>
+                                            <span class="ux-node ux-node-1"></span>
+                                            <span class="ux-node ux-node-2"></span>
+                                            <span class="ux-node ux-node-3"></span>
+                                            <span class="ux-node ux-node-4"></span>
+                                        </div>
+
+                                        <!-- Design Principle Labels -->
+                                        <span class="ux-label-card pos-1">Fitts's Law</span>
+                                        <span class="ux-label-card pos-2">Mental Model</span>
+                                        <span class="ux-label-card pos-3">Feedback Loop</span>
+                                    </div>
+                                    <span class="ux-tag">03 | UX LOGIC</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Socials Grid underneath -->
+                <div class="contact-social-footer">
+                    <span class="social-footer-title">DIRECT CHANNELS</span>
+                    <div class="social-grid">
+                        <a href="mailto:deeksha@example.com" class="social-card magnet-btn">
+                            <div class="social-card-inner">
+                                <div class="social-icon-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="social-meta">
+                                    <span class="social-name">Email</span>
+                                    <span class="social-handle">deeksha@example.com</span>
+                                </div>
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                        
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-card magnet-btn">
+                            <div class="social-card-inner">
+                                <div class="social-icon-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                        <rect x="2" y="9" width="4" height="12"></rect>
+                                        <circle cx="4" cy="4" r="2"></circle>
+                                    </svg>
+                                </div>
+                                <div class="social-meta">
+                                    <span class="social-name">LinkedIn</span>
+                                    <span class="social-handle">Deeksha Udayasankar</span>
+                                </div>
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+
+                        <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="social-card magnet-btn">
+                            <div class="social-card-inner">
+                                <div class="social-icon-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                                        <path d="M9 13c1.7 0 3-1 3-2.5S10.7 8 9 8H4v5h5zm0-3.2c.7 0 1.2.2 1.2.7s-.5.7-1.2.7H5.8V9.8H9zm.4 7.4c1.8 0 3.2-1 3.2-2.7 0-1.6-1.3-2.5-3.2-2.5H4v5.2h5.4zm-.2-3.4c.7 0 1.4.3 1.4.9s-.7.9-1.4.9H5.8v-1.8h3.6zM15 14h6a3 3 0 0 1-6 0c0-1.7 1.3-3 3-3s3 1.3 3 3zm6-5h-6v1h6V9z"/>
+                                    </svg>
+                                </div>
+                                <div class="social-meta">
+                                    <span class="social-name">Behance</span>
+                                    <span class="social-handle">deekshaudayasankar</span>
+                                </div>
+                                <svg class="social-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                                    <polyline points="7 7 17 7 17 17"></polyline>
+                                </svg>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-
-            <!-- --- GLOBAL FOOTER ARCHITECTURE --- -->
-            <footer class="site-footer w-full mt-24 pt-10 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 text-xs text-brandTertiary font-light tracking-wide">
-                <div class="max-w-md">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="brand-dot shrink-0"></span>
-                        <span class="font-display font-bold text-sm text-titleMain tracking-wide">Experience Intelligence</span>
-                    </div>
-                    <p class="leading-relaxed text-brandTertiary/70">Designing meaningful experiences through human understanding, thoughtful design, and technological possibility.</p>
-                </div>
-                <div class="flex flex-col items-start md:items-end gap-3">
-                    <div class="flex gap-5 font-display text-[10px] uppercase tracking-widest font-semibold">
-                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="text-brandTertiary/70 hover:text-brandSecondary transition-colors">LinkedIn</a>
-                        <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="text-brandTertiary/70 hover:text-brandSecondary transition-colors">Behance</a>
-                        <a href="mailto:deeksha@example.com" class="text-brandTertiary/70 hover:text-brandSecondary transition-colors">Email</a>
-                    </div>
-                    <div class="text-left md:text-right font-display text-[11px]">
-                        <span class="text-titleMain block font-bold tracking-wide">Deeksha Udayasankar</span>
-                        <span class="text-brandTertiary/60">UI/UX Designer &copy; 2026</span>
-                    </div>
-                </div>
-            </footer>
         </section>
 
     </main>
